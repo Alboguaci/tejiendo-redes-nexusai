@@ -1,0 +1,377 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>NexusAI 2.0 · Panel de operaciones distribuidas</title>
+<style>
+  :root {
+    --bg: #0b1220;
+    --panel: #131c2e;
+    --panel-2: #182338;
+    --border: #22304a;
+    --text: #e6edf7;
+    --muted: #8fa3bf;
+    --accent: #f39c12;
+    --green: #2ecc71;
+    --red: #e74c3c;
+    --blue: #3498db;
+    --purple: #9b59b6;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: radial-gradient(circle at 15% -10%, #1b2a45 0%, var(--bg) 45%);
+    color: var(--text);
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+  }
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; padding: 20px 28px; border-bottom: 1px solid var(--border);
+    background: rgba(11, 18, 32, 0.75); backdrop-filter: blur(8px);
+    position: sticky; top: 0; z-index: 10;
+  }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .logo {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: linear-gradient(135deg, var(--accent), #d35400);
+    display: grid; place-items: center; font-weight: 800; font-size: 20px; color: #10161f;
+    box-shadow: 0 6px 18px rgba(243, 156, 18, 0.35);
+  }
+  .brand h1 { font-size: 18px; margin: 0; letter-spacing: 0.3px; }
+  .brand p { margin: 2px 0 0; font-size: 12px; color: var(--muted); }
+  .header-right { display: flex; align-items: center; gap: 14px; font-size: 12px; color: var(--muted); }
+  .pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 6px 12px; border-radius: 999px; border: 1px solid var(--border);
+    background: var(--panel); font-size: 12px;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px var(--green); }
+  .dot.off { background: var(--red); box-shadow: 0 0 10px var(--red); }
+  button {
+    cursor: pointer; border: 1px solid var(--border); background: var(--panel-2);
+    color: var(--text); padding: 8px 14px; border-radius: 9px; font-size: 12px;
+    transition: 0.15s;
+  }
+  button:hover { border-color: var(--accent); color: var(--accent); }
+  main { padding: 22px 28px 40px; max-width: 1500px; margin: 0 auto; }
+  .kpis { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; margin-bottom: 18px; }
+  .card {
+    background: linear-gradient(180deg, var(--panel-2), var(--panel));
+    border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px;
+  }
+  .kpi .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.9px; color: var(--muted); }
+  .kpi .value { font-size: 26px; font-weight: 700; margin-top: 6px; }
+  .kpi .hint { font-size: 11px; color: var(--muted); margin-top: 3px; }
+  .grid { display: grid; grid-template-columns: 1.45fr 1fr; gap: 16px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+  h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin: 0 0 12px; }
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  th {
+    text-align: left; font-weight: 600; color: var(--muted); font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.7px; padding: 8px 8px; border-bottom: 1px solid var(--border);
+  }
+  td { padding: 9px 8px; border-bottom: 1px solid rgba(34, 48, 74, 0.55); }
+  tr:last-child td { border-bottom: none; }
+  .mono { font-family: "Cascadia Code", Consolas, monospace; font-size: 11.5px; }
+  .badge {
+    display: inline-block; padding: 3px 9px; border-radius: 999px;
+    font-size: 10.5px; font-weight: 700; letter-spacing: 0.4px;
+  }
+  .badge.CLOSED { background: rgba(46, 204, 113, 0.14); color: var(--green); border: 1px solid rgba(46, 204, 113, 0.4); }
+  .badge.HALF_OPEN { background: rgba(243, 156, 18, 0.14); color: var(--accent); border: 1px solid rgba(243, 156, 18, 0.4); }
+  .badge.OPEN { background: rgba(231, 76, 60, 0.14); color: var(--red); border: 1px solid rgba(231, 76, 60, 0.4); }
+  .badge.ok { background: rgba(46, 204, 113, 0.14); color: var(--green); }
+  .badge.warn { background: rgba(243, 156, 18, 0.14); color: var(--accent); }
+  .badge.err { background: rgba(231, 76, 60, 0.14); color: var(--red); }
+  .bar { height: 7px; border-radius: 99px; background: rgba(143, 163, 191, 0.16); overflow: hidden; }
+  .bar > span { display: block; height: 100%; border-radius: 99px; background: var(--accent); }
+  .step-row { display: grid; grid-template-columns: 90px 1fr 92px; gap: 10px; align-items: center; margin-bottom: 11px; font-size: 12px; }
+  .step-row .track { height: 12px; border-radius: 6px; background: rgba(143, 163, 191, 0.14); overflow: hidden; }
+  .step-row .track > span { display: block; height: 100%; background: linear-gradient(90deg, var(--blue), var(--purple)); }
+  canvas { width: 100%; height: 74px; display: block; }
+  .footer { margin-top: 22px; display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); }
+  .empty { color: var(--muted); font-size: 12px; padding: 8px 0; }
+  @media (max-width: 1180px) {
+    .kpis { grid-template-columns: repeat(3, 1fr); }
+    .grid, .grid-2 { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="logo">N</div>
+    <div>
+      <h1>NexusAI 2.0 · Operaciones distribuidas</h1>
+      <p>API Gateway · Saga orquestada · Broker de eventos · Nodos de cómputo con hilos</p>
+    </div>
+  </div>
+  <div class="header-right">
+    <span class="pill"><span class="dot" id="live-dot"></span><span id="live-label">conectando...</span></span>
+    <span id="clock" class="mono"></span>
+    <button id="reset-btn">Reiniciar métricas</button>
+  </div>
+</header>
+
+<main>
+  <section class="kpis">
+    <div class="card kpi"><div class="label">Throughput</div><div class="value" id="kpi-rps">–</div><div class="hint">transacciones / s</div></div>
+    <div class="card kpi"><div class="label">Completadas</div><div class="value" id="kpi-ok" style="color: var(--green)">–</div><div class="hint" id="kpi-ok-hint">sagas 200</div></div>
+    <div class="card kpi"><div class="label">Compensadas</div><div class="value" id="kpi-rollback" style="color: var(--accent)">–</div><div class="hint">rollback 409</div></div>
+    <div class="card kpi"><div class="label">Latencia p95</div><div class="value" id="kpi-p95">–</div><div class="hint" id="kpi-avg">avg –</div></div>
+    <div class="card kpi"><div class="label">En vuelo</div><div class="value" id="kpi-active" style="color: var(--blue)">–</div><div class="hint">sagas concurrentes</div></div>
+    <div class="card kpi"><div class="label">Atención</div><div class="value" id="kpi-handled">–</div><div class="hint">200 + 409 / total</div></div>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <h2>Nodos de cómputo</h2>
+      <table>
+        <thead><tr><th>Nodo</th><th>Endpoint</th><th>Breaker</th><th>En vuelo</th><th>Despachadas</th><th>OK / Fallos</th><th>Hilos</th></tr></thead>
+        <tbody id="workers-body"><tr><td colspan="7" class="empty">sin datos</td></tr></tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h2>Throughput (ventana en vivo)</h2>
+      <canvas id="spark" width="520" height="74"></canvas>
+      <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--muted); margin-top:6px;">
+        <span id="spark-min">–</span><span id="spark-max">–</span>
+      </div>
+      <h2 style="margin-top:18px;">Broker de eventos</h2>
+      <table>
+        <thead><tr><th>Topic</th><th>Profundidad</th><th>Publicados</th><th>Consumidos</th></tr></thead>
+        <tbody id="broker-body"><tr><td colspan="4" class="empty">sin datos</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="grid-2">
+    <div class="card">
+      <h2>Latencia por paso de la Saga</h2>
+      <div id="steps"><div class="empty">sin datos</div></div>
+    </div>
+    <div class="card">
+      <h2>Últimas transacciones</h2>
+      <table>
+        <thead><tr><th>Saga</th><th>Estado</th><th>Nodos</th><th>Duración</th><th>E2E</th></tr></thead>
+        <tbody id="sagas-body"><tr><td colspan="5" class="empty">sin datos</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="footer">
+    <span>Coordinador: <span class="mono" id="coord-url"></span> · Broker: <span class="mono" id="broker-url"></span></span>
+    <span>Actividad 4 · Arquitectura de Software · CETO</span>
+  </div>
+</main>
+
+<script>
+  const params = new URLSearchParams(location.search);
+  const COORD = (params.get("coord") || "http://127.0.0.1:8080").replace(/\/$/, "");
+  const BROKER = (params.get("broker") || "http://127.0.0.1:8090").replace(/\/$/, "");
+  document.getElementById("coord-url").textContent = COORD;
+  document.getElementById("broker-url").textContent = BROKER;
+
+  const history = [];
+  const MAX_HISTORY = 60;
+  let online = false;
+
+  const fmt = (n, digits = 0) =>
+    n === undefined || n === null || Number.isNaN(n)
+      ? "–"
+      : Number(n).toLocaleString("es-CO", { minimumFractionDigits: digits, maximumFractionDigits: digits });
+
+  function setLive(ok) {
+    online = ok;
+    const dot = document.getElementById("live-dot");
+    dot.classList.toggle("off", !ok);
+    document.getElementById("live-label").textContent = ok ? "en vivo" : "sin conexión";
+  }
+
+  function renderWorkers(workers) {
+    const body = document.getElementById("workers-body");
+    if (!workers || !workers.length) {
+      body.innerHTML = '<tr><td colspan="7" class="empty">sin nodos activos</td></tr>';
+      return;
+    }
+    body.innerHTML = workers
+      .map((w) => {
+        const ratio = w.threads ? Math.min(100, (w.inflight / w.threads) * 100) : 0;
+        return `<tr>
+          <td><strong>${w.id}</strong></td>
+          <td class="mono">${w.url.replace("http://", "")}</td>
+          <td><span class="badge ${w.breaker}">${w.breaker}</span></td>
+          <td>${w.inflight}</td>
+          <td>${fmt(w.dispatched)}</td>
+          <td><span style="color:var(--green)">${fmt(w.successes)}</span> / <span style="color:var(--red)">${fmt(w.failures)}</span></td>
+          <td style="min-width:86px">
+            <div class="bar"><span style="width:${ratio}%; background:${w.breaker === "OPEN" ? "var(--red)" : "var(--accent)"}"></span></div>
+            <span style="font-size:10px;color:var(--muted)">${w.threads} hilos</span>
+          </td>
+        </tr>`;
+      })
+      .join("");
+  }
+
+  function renderBroker(data) {
+    const body = document.getElementById("broker-body");
+    const topics = data && data.topics ? Object.entries(data.topics) : [];
+    if (!topics.length) {
+      body.innerHTML = '<tr><td colspan="4" class="empty">sin eventos</td></tr>';
+      return;
+    }
+    body.innerHTML = topics
+      .map(([name, t]) => `<tr>
+        <td class="mono">${name}</td>
+        <td>${fmt(t.queue_depth)}</td>
+        <td>${fmt(t.published)}</td>
+        <td>${fmt(t.consumed)}</td>
+      </tr>`)
+      .join("");
+  }
+
+  function renderSteps(steps) {
+    const container = document.getElementById("steps");
+    const order = ["triage", "rag", "compliance", "compensate"];
+    const names = order.filter((n) => steps && steps[n]);
+    if (!names.length) {
+      container.innerHTML = '<div class="empty">sin datos</div>';
+      return;
+    }
+    const max = Math.max(...names.map((n) => steps[n].p95 || 0), 1);
+    container.innerHTML = names
+      .map((name) => {
+        const s = steps[name];
+        return `<div class="step-row">
+          <span class="mono">${name}</span>
+          <div class="track"><span style="width:${Math.min(100, (s.p95 / max) * 100)}%"></span></div>
+          <span style="color:var(--muted)">${fmt(s.avg, 0)} / ${fmt(s.p95, 0)} ms</span>
+        </div>`;
+      })
+      .join("");
+  }
+
+  function renderSagas(sagas) {
+    const body = document.getElementById("sagas-body");
+    if (!sagas || !sagas.length) {
+      body.innerHTML = '<tr><td colspan="5" class="empty">sin transacciones</td></tr>';
+      return;
+    }
+    body.innerHTML = sagas
+      .slice()
+      .reverse()
+      .map((s) => {
+        const cls = s.status === "completed" ? "ok" : s.status === "rolled_back" ? "warn" : "err";
+        const nodes = (s.workers || []).filter(Boolean).join(" → ") || "–";
+        return `<tr>
+          <td class="mono">${s.saga_id || "–"}</td>
+          <td><span class="badge ${cls}">${s.status || "error"}</span></td>
+          <td class="mono">${nodes}</td>
+          <td>${fmt(s.duration_ms, 0)} ms</td>
+          <td>${fmt(s.e2e_latency_ms, 0)} ms</td>
+        </tr>`;
+      })
+      .join("");
+  }
+
+  function drawSpark() {
+    const canvas = document.getElementById("spark");
+    const ctx = canvas.getContext("2d");
+    const w = canvas.width;
+    const h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
+    if (history.length < 2) return;
+
+    const max = Math.max(...history, 1);
+    const min = Math.min(...history, 0);
+    const range = Math.max(max - min, 1);
+    const step = w / Math.max(history.length - 1, 1);
+    const points = history.map((value, index) => [
+      index * step,
+      h - 6 - ((value - min) / range) * (h - 16),
+    ]);
+
+    const gradient = ctx.createLinearGradient(0, 0, 0, h);
+    gradient.addColorStop(0, "rgba(243, 156, 18, 0.45)");
+    gradient.addColorStop(1, "rgba(243, 156, 18, 0.02)");
+    ctx.beginPath();
+    ctx.moveTo(points[0][0], h);
+    points.forEach(([x, y]) => ctx.lineTo(x, y));
+    ctx.lineTo(points[points.length - 1][0], h);
+    ctx.closePath();
+    ctx.fillStyle = gradient;
+    ctx.fill();
+
+    ctx.beginPath();
+    points.forEach(([x, y], index) => (index ? ctx.lineTo(x, y) : ctx.moveTo(x, y)));
+    ctx.strokeStyle = "#f39c12";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    const [lx, ly] = points[points.length - 1];
+    ctx.beginPath();
+    ctx.arc(lx, ly, 3.5, 0, Math.PI * 2);
+    ctx.fillStyle = "#f39c12";
+    ctx.fill();
+
+    document.getElementById("spark-min").textContent = `mín ${min.toFixed(1)} rps`;
+    document.getElementById("spark-max").textContent = `máx ${max.toFixed(1)} rps`;
+  }
+
+  async function poll() {
+    try {
+      const [metricsRes, brokerRes] = await Promise.all([
+        fetch(COORD + "/metrics", { cache: "no-store" }),
+        fetch(BROKER + "/metrics", { cache: "no-store" }),
+      ]);
+      if (!metricsRes.ok) throw new Error("coordinator " + metricsRes.status);
+      const m = await metricsRes.json();
+      const broker = brokerRes.ok ? await brokerRes.json() : null;
+
+      setLive(true);
+      document.getElementById("kpi-rps").textContent = fmt(m.throughput_rps, 1);
+      document.getElementById("kpi-ok").textContent = fmt(m.completed);
+      document.getElementById("kpi-ok-hint").textContent = `tasa ${fmt(m.completion_rate_pct, 1)}%`;
+      document.getElementById("kpi-rollback").textContent = fmt(m.rolled_back);
+      document.getElementById("kpi-p95").textContent = fmt(m.latency_ms.p95, 0) + " ms";
+      document.getElementById("kpi-avg").textContent = "avg " + fmt(m.latency_ms.avg, 0) + " ms";
+      document.getElementById("kpi-active").textContent = fmt(m.active);
+      document.getElementById("kpi-handled").textContent = fmt(m.handled_rate_pct, 1) + "%";
+
+      renderWorkers(m.workers);
+      renderBroker(broker);
+      renderSteps(m.steps);
+      renderSagas(m.recent_sagas);
+
+      history.push(m.throughput_rps || 0);
+      if (history.length > MAX_HISTORY) history.shift();
+      drawSpark();
+    } catch (error) {
+      setLive(false);
+    }
+  }
+
+  document.getElementById("reset-btn").addEventListener("click", async () => {
+    try {
+      await fetch(COORD + "/reset", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ breakers: true }),
+      });
+      history.length = 0;
+      drawSpark();
+    } catch (error) {
+      setLive(false);
+    }
+  });
+
+  setInterval(() => {
+    document.getElementById("clock").textContent = new Date().toLocaleTimeString("es-CO");
+  }, 1000);
+  setInterval(poll, 1500);
+  poll();
+</script>
+</body>
+</html>
