@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+.pytest_cache/
+
+# Logs de ejecución del clúster (se regeneran al correr el prototipo)
+pruebas/logs/*.log
+
+# Archivos temporales de Word y del sistema
+~$*
+*.tmp
+Thumbs.db
+desktop.ini
+
+# Editores
+.vscode/
+.idea/
+*.swp
