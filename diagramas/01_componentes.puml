@@ -1,0 +1,82 @@
+@startuml 01_componentes
+!theme plain
+skinparam componentStyle rectangle
+skinparam shadowing false
+skinparam defaultFontName "Segoe UI"
+skinparam defaultFontSize 11
+skinparam packageStyle rectangle
+skinparam component {
+  BackgroundColor #F4F7FB
+  BorderColor #2C3E50
+}
+skinparam database {
+  BackgroundColor #FFF4E6
+  BorderColor #B9770E
+}
+
+title NexusAI 2.0 — Diagrama de Componentes (Arquitectura Distribuida)
+
+package "Capa de Presentación" {
+  [Cliente Omnicanal\n(Load Generator)] as CLIENT
+  [Dashboard Operacional\n(Chart.js / :8088)] as DASH
+}
+
+package "Capa de Coordinación — Nodo 1 (:8080)" {
+  [API Gateway\nHTTP/JSON] as GW
+  [Saga Orchestrator\nMáquina de Estados] as SAGA
+  [Load Balancer\nStrategy: Round-Robin] as LB
+  [Circuit Breaker\n+ Retry Policy] as CB
+  [Dispatch ThreadPool\n(8 hilos)] as POOL
+}
+
+package "Capa de Mensajería — Nodo 2 (:8090)" {
+  [Message Broker\nTopic: events] as BUS
+  [Topic: audit] as AUDIT
+}
+
+package "Capa de Cómputo — Nodos 3, 4 y 5" {
+  [Worker Node 1\n:8101 · ThreadPool(4)] as W1
+  [Worker Node 2\n:8102 · ThreadPool(4)] as W2
+  [Worker Node 3\n:8103 · ThreadPool(4)] as W3
+}
+
+package "Capa de Observabilidad" {
+  [Metrics Collector\n/health · /metrics] as MET
+  database "Event Log\nJSONL inmutable" as LOG
+}
+
+CLIENT --> GW : POST /task
+DASH --> GW : GET /metrics
+DASH --> BUS : GET /metrics
+
+GW --> SAGA : createTransaction()
+SAGA --> LB : nextWorker()
+LB --> CB : executeWithBreaker()
+CB --> POOL : submit(step)
+POOL --> W1 : POST /execute
+POOL --> W2 : POST /execute
+POOL --> W3 : POST /execute
+
+W1 --> BUS : publish(task.completed)
+W2 --> BUS : publish(task.completed)
+W3 --> BUS : publish(task.failed)
+BUS --> AUDIT : persist
+AUDIT --> LOG : append(JSONL)
+
+GW --> MET : registerLatency()
+W1 --> MET : threadMetrics()
+W2 --> MET : threadMetrics()
+W3 --> MET : threadMetrics()
+BUS --> MET : queueDepth()
+
+note right of SAGA
+  Patrón Saga orquestada:
+  triage → rag → compliance
+  y compensación inversa ante fallo.
+end note
+note bottom of POOL
+  Bulkhead: cada nodo limita su propio
+  ThreadPool y su cola de tareas.
+end note
+
+@enduml

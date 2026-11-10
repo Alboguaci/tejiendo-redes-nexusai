@@ -1,0 +1,91 @@
+@startuml 02_secuencia
+!theme plain
+skinparam shadowing false
+skinparam defaultFontName "Segoe UI"
+skinparam defaultFontSize 10
+skinparam sequence {
+  ArrowColor #2C3E50
+  ActorBorderColor #2C3E50
+  LifeLineBorderColor #95A5A6
+  ParticipantBorderColor #2C3E50
+  ParticipantBackgroundColor #F4F7FB
+}
+
+title NexusAI 2.0 — Secuencia: Interacción entre Nodos e Hilos (fallo de guardrail y compensación)
+
+actor "Cliente\nOmnicanal" as CLI
+participant "API Gateway\n(Hilo principal)" as GW
+participant "Saga Orchestrator\n(Estado + Lock)" as SAGA
+participant "Dispatch Pool\n(Hilos T1..T8)" as POOL
+participant "Worker 1\n(Triage · Hilos W1)" as W1
+participant "Worker 2\n(RAG · Hilos W2)" as W2
+participant "Worker 3\n(Compliance · Hilos W3)" as W3
+participant "Message Broker\n(Topics)" as BUS
+participant "Event Log\n(JSONL)" as LOG
+
+autonumber
+
+CLI -> GW : POST /task {canal, prompt}
+activate GW
+GW -> SAGA : crearTransaccion(task_id)
+activate SAGA
+SAGA -> BUS : publish(saga.started)
+BUS -> LOG : append(evento)
+
+SAGA -> POOL : submit(triage)
+activate POOL
+POOL -> W1 : POST /execute (Hilo T1)
+activate W1
+note right of W1 : Hilo W1-1 procesa\n~80 ms de latencia
+W1 --> POOL : {status: ok, worker: W1}
+deactivate W1
+POOL --> SAGA : resultado triage
+deactivate POOL
+W1 -> BUS : publish(task.completed)
+
+SAGA -> POOL : submit(rag)
+activate POOL
+POOL -> W2 : POST /execute (Hilo T2)
+activate W2
+note right of W2 : Hilo W2-2 consulta\ncontexto vectorial (~180 ms)
+W2 --> POOL : {status: ok, worker: W2}
+deactivate W2
+POOL --> SAGA : resultado rag
+deactivate POOL
+W2 -> BUS : publish(task.completed)
+
+SAGA -> POOL : submit(compliance)
+activate POOL
+POOL -> W3 : POST /execute (Hilo T3)
+activate W3
+note right of W3 : Hilo W3-1 evalúa\nguardrails y confianza
+W3 --> POOL : {status: error, reason: guardrail}
+deactivate W3
+POOL --> SAGA : SagaError(confidence < 0.90)
+deactivate POOL
+W3 -> BUS : publish(task.failed)
+
+SAGA -> SAGA : compensarPasosPrevios()
+SAGA -> POOL : submit(compensate rag)
+activate POOL
+POOL -> W2 : POST /execute (Hilo T4)
+activate W2
+W2 --> POOL : {status: compensated}
+deactivate W2
+deactivate POOL
+W2 -> BUS : publish(saga.compensated)
+
+SAGA -> BUS : publish(saga.rolled_back)
+BUS -> LOG : append(evento + hash)
+SAGA --> GW : 409 {estado: ROLLED_BACK, auditoría}
+deactivate SAGA
+GW --> CLI : respuesta + trazabilidad
+deactivate GW
+
+note over POOL, W3
+  Concurrencia real: el pool de despacho (T1..T8)
+  distribuye pasos entre nodos; cada nodo ejecuta
+  sus tareas en su propio ThreadPool (W1..W3).
+end note
+
+@enduml

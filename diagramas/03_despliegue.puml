@@ -1,0 +1,78 @@
+@startuml 03_despliegue
+!theme plain
+skinparam shadowing false
+skinparam defaultFontName "Segoe UI"
+skinparam defaultFontSize 11
+skinparam node {
+  BackgroundColor #F4F7FB
+  BorderColor #2C3E50
+}
+skinparam component {
+  BackgroundColor #FFFFFF
+  BorderColor #2C3E50
+}
+skinparam database {
+  BackgroundColor #FFF4E6
+  BorderColor #B9770E
+}
+
+title NexusAI 2.0 — Diagrama de Despliegue (Prototipo local / red Docker)
+
+node "Equipo Cliente\n(navegador + load generator)" as CLIENT {
+  artifact "load_test.py\nconcurrent.futures" as LT
+}
+
+node "Nodo 1 · API Gateway\nlocalhost:8080" as N1 {
+  component "coordinator.py\nThreadingHTTPServer" as COORD
+  component "Saga Orchestrator\n+ Circuit Breaker" as SAGA
+  component "Dispatch ThreadPool\n(8 hilos)" as POOL
+}
+
+node "Nodo 2 · Message Broker\nlocalhost:8090" as N2 {
+  component "broker.py\nThreadingHTTPServer" as BROKER
+  queue "events" as Q1
+  queue "audit" as Q2
+}
+
+node "Nodo 3 · Worker 1\nlocalhost:8101" as N3 {
+  component "worker.py" as W1
+  component "ThreadPool(4)" as P1
+}
+
+node "Nodo 4 · Worker 2\nlocalhost:8102" as N4 {
+  component "worker.py" as W2
+  component "ThreadPool(4)" as P2
+}
+
+node "Nodo 5 · Worker 3\nlocalhost:8103" as N5 {
+  component "worker.py" as W3
+  component "ThreadPool(4)" as P3
+}
+
+node "Nodo 6 · Dashboard\nlocalhost:8088" as N6 {
+  component "dashboard.html\nChart.js" as DASH
+}
+
+database "Event Log\n./pruebas/event_log.jsonl" as LOG
+
+CLIENT --> N1 : HTTP/JSON\nPOST /task
+N1 --> N3 : HTTP/JSON\nPOST /execute
+N1 --> N4 : HTTP/JSON\nPOST /execute
+N1 --> N5 : HTTP/JSON\nPOST /execute
+N3 --> N2 : HTTP/JSON\nPOST /publish
+N4 --> N2 : HTTP/JSON\nPOST /publish
+N5 --> N2 : HTTP/JSON\nPOST /publish
+N2 --> LOG : append(JSONL)
+N6 --> N1 : GET /metrics
+N6 --> N2 : GET /metrics
+
+note bottom of N1
+  Red Docker: nexus-net (bridge)
+  Puerto publicado al host para la demo.
+end note
+note bottom of N5
+  Cada nodo es un proceso independiente:
+  si cae, el Circuit Breaker lo aísla.
+end note
+
+@enduml
