@@ -1,6 +1,6 @@
 # Tejiendo redes: Arquitectura de software entre hilos y nodos
 
-**Actividad 4 — Unidad 2 · Arquitectura de Software · CETO 2026**
+**Actividad 4 — Unidad 2 · Arquitectura de Software · Tecnológica del Oriente · 2026**
 
 Prototipo distribuido real de **NexusAI 2.0**, la evolución ejecutable de la arquitectura
 cloud-native diseñada en la Actividad 2. El sistema demuestra, con procesos independientes
@@ -19,7 +19,7 @@ horizontal y se degrada de manera controlada cuando un nodo falla.
 | Entregable | Ubicación |
 |---|---|
 | Repositorio del código | <https://github.com/Alboguaci/tejiendo-redes-nexusai> |
-| Informe APA 7 (61 páginas) | [`informe/Informe_Actividad4_Tejiendo_Redes.pdf`](informe/Informe_Actividad4_Tejiendo_Redes.pdf) |
+| Informe APA 7 (51 páginas) | [`informe/Informe_Actividad4_Tejiendo_Redes.pdf`](informe/Informe_Actividad4_Tejiendo_Redes.pdf) |
 | Informe editable | [`informe/Informe_Actividad4_Tejiendo_Redes.docx`](informe/Informe_Actividad4_Tejiendo_Redes.docx) |
 | Diagramas UML (componentes, secuencia, despliegue) | [`diagramas/`](diagramas/) |
 | Prototipo ejecutable | [`prototipo/`](prototipo/) |

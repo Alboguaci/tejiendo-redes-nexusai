@@ -1,4 +1,4 @@
-"""Construye el informe APA 7 (GUIA APA CETO) de la Actividad 4.
+"""Construye el informe técnico bajo normas APA 7 de la Actividad 4.
 
 Toma ``body.md`` como fuente unica de contenido y produce un .docx con:
 
@@ -563,7 +563,7 @@ def main():
 
     doc.core_properties.title = f"{TITULO}. {SUBTITULO}"
     doc.core_properties.author = "Juan Carlos Benítez Rojas; Juan José Córdoba Eraso"
-    doc.core_properties.subject = "Actividad 4 — Arquitectura de Software — CETO"
+    doc.core_properties.subject = "Actividad 4 — Arquitectura de Software"
     doc.save(OUTPUT)
     print(f"OK -> {OUTPUT} ({OUTPUT.stat().st_size} bytes)")
 
