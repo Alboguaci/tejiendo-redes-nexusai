@@ -1,232 +1,250 @@
-# Guion Técnico de Sustentación Oral — NexusAI 2.0
+# Guion Técnico de Sustentación Oral (17 Minutos) — NexusAI 2.0
 ## Actividad 4: Tejiendo Redes — Arquitectura de Software entre Hilos y Nodos
 
-- **Duración total estimada:** 13 minutos y 30 segundos (Rango oficial exigido: 12 a 15 minutos).
-- **Modalidad:** Grabación de pantalla con cámara activa de los expositores, subida a YouTube en modo «No listado».
+- **Duración total:** 17 minutos exactos (1 020 segundos) distribuidos en 22 intervenciones.
+- **Rango por intervención:** Entre 30 y 50 segundos por turno (rotación dinámica tipo diálogo técnico).
 - **Expositores y Roles:**
-  - **[JC] Juan Carlos Benítez Rojas:** Líder de Proyecto y Arquitecto de Software.
-  - **[JJ] Juan José Córdoba Eraso:** Desarrollador Principal y Evaluador de Calidad.
+  - **[JC] Juan Carlos Benítez Rojas:** Líder de Proyecto y Arquitecto de Software (11 intervenciones).
+  - **[JJ] Juan José Córdoba Eraso:** Desarrollador Principal y Evaluador de Calidad (11 intervenciones).
+- **Formato de Entrega:** Video con cámaras activas y pantalla compartida, subido a YouTube en modo «No listado».
 
 ---
 
-## 🛠️ Preparación Técnica Previa a la Grabación (Checklist de 5 Minutos)
+## 🛠️ Checklist Técnico Previo a la Grabación (5 Minutos)
 
-Antes de presionar el botón de grabar, ambos expositores deben verificar:
-1. **Entorno del Clúster:** Abrir una terminal en `Actividad4_Tejiendo_Redes/prototipo` y arrancar el clúster:
-   ```bash
-   python run_cluster.py --workers 3 --threads 16 --worker-threads 4
-   ```
-2. **Tablero de Control:** Abrir `http://127.0.0.1:8088/dashboard.html` en el navegador principal a pantalla completa o media pantalla.
-3. **Segunda Terminal:** Dejar abierta y lista una segunda ventana de consola en la carpeta `prototipo/` para lanzar las cargas y el caos.
-4. **Documentos de Soporte:** Tener abierto el PDF del informe en las páginas de los tres diagramas UML y las gráficas comparativas.
-5. **Cero Distracciones:** Silenciar notificaciones del sistema operativo y cerrar programas pesados en segundo plano para evitar contención de CPU durante los benchmarks en vivo.
+1. **Terminal 1 (Clúster):** `cd prototipo && python run_cluster.py --workers 3 --threads 16 --worker-threads 4`.
+2. **Navegador Web:** `http://127.0.0.1:8088/dashboard.html` en pantalla completa.
+3. **Terminal 2 (Carga y Caos):** Lista para ejecutar `load_test.py` y `chaos_test.py`.
+4. **Visor de PDF:** Abierto en el archivo `Informe_Actividad4_Tejiendo_Redes.pdf` en los diagramas UML.
+5. **Resolución y Legibilidad:** Aumentar el zoom de consola (Ctrl + +) para garantizar calidad 1080p.
 
 ---
 
-## ⏱️ Cronograma de Intervención por Bloques
+## ⏱️ Tabla Resumen de Intervenciones (17:00 Exactos)
 
-| Bloque | Intervalo | Duración | Responsable | Tema Central |
-|---|:---:|:---:|:---:|---|
-| **Bloque 1** | 00:00 – 01:15 | 1:15 | JC y JJ | Apertura, presentación y contexto de NexusAI 2.0 |
-| **Bloque 2** | 01:15 – 03:45 | 2:30 | JC | Modelado UML formal (Componentes, Secuencia y Despliegue) |
-| **Bloque 3** | 03:45 – 05:15 | 1:30 | JC | Justificación teórica de los 9 patrones de diseño |
-| **Bloque 4** | 05:15 – 07:00 | 1:45 | JJ | Arquitectura de código y 4 niveles de concurrencia |
-| **Bloque 5** | 07:00 – 10:15 | 3:15 | JJ | Demostración en vivo: caso nominal y 4 escenarios de caos |
-| **Bloque 6** | 10:15 – 12:15 | 2:00 | JJ y JC | Resultados cuantitativos y 5 ajustes arquitectónicos empíricos |
-| **Bloque 7** | 12:15 – 13:30 | 1:15 | JC y JJ | Conclusiones, revisión de entregables y cierre |
-
----
-
-## 🎬 GUION DIALOGADO VERBÁTIM
-
----
-
-### BLOQUE 1 · Apertura y Contextualización del Proyecto (00:00 – 01:15)
-
-**[EN PANTALLA: Portada formal del informe en PDF mostrando título, curso, docente y nombres de los integrantes. Cámaras de ambos expositores activas en la esquina superior].**
-
-**[00:00] JUAN CARLOS:**
-> «Un cordial saludo a la profesora Leidy Johana Polo y a nuestros compañeros. Mi nombre es Juan Carlos Benítez Rojas, líder de proyecto y arquitecto de software de esta entrega.»
-
-**[00:13] JUAN JOSÉ:**
-> «Y mi nombre es Juan José Córdoba Eraso, desarrollador principal y evaluador de calidad del equipo.»
-
-**[00:20] JUAN CARLOS:**
-> «Hoy sustentamos la Actividad 4: *Tejiendo redes: Arquitectura de software entre hilos y nodos*. En la Actividad 2 diseñamos conceptualmente la plataforma **NexusAI**, concebida para la orquestación inteligente de flujos cognitivos empresariales. Aquel diseño definió una visión cloud-native sólida, pero descansaba sobre un prototipo simulado en el navegador. 
-> 
-> El objetivo y el desafío que asumimos en esta cuarta actividad fue categórico: llevar a NexusAI de los diagramas conceptuales a una **red física distribuida real**, compuesta por procesos independientes, hilos de ejecución concurrentes, servidores HTTP nativos y un bus de eventos persistente. En los próximos doce minutos demostraremos cómo nuestra arquitectura escala de forma casi lineal y sostiene el cien por ciento de disponibilidad ante fallas severas de infraestructura.»
+| Turno | Intervalo | Duración | Expositor | Rol Asignado | Tema Principal |
+|:---:|:---:|:---:|---|---|---|
+| **01** | 00:00 – 00:45 | 45 seg | **JC (Juan Carlos)** | Líder de Proyecto y Arquitecto de Software | Portada formal del informe en PDF mostrando título, unidad, docente y nombres de los integrantes. Cámaras de ambos expositores activas. |
+| **02** | 00:45 – 01:30 | 45 seg | **JJ (Juan José)** | Desarrollador Principal y Evaluador de Calidad | Diagrama de bloques general o animación introductoria del pipeline cognitivo (Triage, RAG, Compliance). |
+| **03** | 01:30 – 02:15 | 45 seg | **JC (Juan Carlos)** | Líder de Proyecto y Arquitecto de Software | Diagrama de Componentes |
+| **04** | 02:15 – 03:00 | 45 seg | **JJ (Juan José)** | Desarrollador Principal y Evaluador de Calidad | Diagrama de Componentes |
+| **05** | 03:00 – 03:50 | 50 seg | **JC (Juan Carlos)** | Líder de Proyecto y Arquitecto de Software | Diagrama de Secuencia |
+| **06** | 03:50 – 04:35 | 45 seg | **JJ (Juan José)** | Desarrollador Principal y Evaluador de Calidad | Diagrama de Secuencia |
+| **07** | 04:35 – 05:20 | 45 seg | **JC (Juan Carlos)** | Líder de Proyecto y Arquitecto de Software | Diagrama de Despliegue |
+| **08** | 05:20 – 06:10 | 50 seg | **JJ (Juan José)** | Desarrollador Principal y Evaluador de Calidad | Tabla 6 del informe |
+| **09** | 06:10 – 07:00 | 50 seg | **JC (Juan Carlos)** | Líder de Proyecto y Arquitecto de Software | Tabla 6 del informe |
+| **10** | 07:00 – 07:45 | 45 seg | **JJ (Juan José)** | Desarrollador Principal y Evaluador de Calidad | Tabla 6 del informe |
+| **11** | 07:45 – 08:30 | 45 seg | **JC (Juan Carlos)** | Líder de Proyecto y Arquitecto de Software | Estructura de archivos en el editor de código mostrando la carpeta `prototipo/` y sus 9 módulos. |
+| **12** | 08:30 – 09:20 | 50 seg | **JJ (Juan José)** | Desarrollador Principal y Evaluador de Calidad | Fragmentos de código en `coordinator.py` y `worker.py` mostrando ThreadPoolExecutor y threading.Lock. |
+| **13** | 09:20 – 10:05 | 45 seg | **JC (Juan Carlos)** | Líder de Proyecto y Arquitecto de Software | Pantalla dividida |
+| **14** | 10:05 – 10:55 | 50 seg | **JJ (Juan José)** | Desarrollador Principal y Evaluador de Calidad | Terminal ejecutando `python load_test.py --tasks 120 --concurrency 24 --label demo_nominal` y el dashboard actualizando gráficas. |
+| **15** | 10:55 – 11:40 | 45 seg | **JC (Juan Carlos)** | Líder de Proyecto y Arquitecto de Software | Terminal inyectando latencia en w2 |
+| **16** | 11:40 – 12:30 | 50 seg | **JJ (Juan José)** | Desarrollador Principal y Evaluador de Calidad | Terminal inyectando fallo 100% en w2 |
+| **17** | 12:30 – 13:15 | 45 seg | **JC (Juan Carlos)** | Líder de Proyecto y Arquitecto de Software | Terminal ejecutando prueba de guardrails |
+| **18** | 13:15 – 14:05 | 50 seg | **JJ (Juan José)** | Desarrollador Principal y Evaluador de Calidad | Terminal matando proceso de w3 (`chaos_test.py stop`), corriendo carga y luego reiniciando w3. |
+| **19** | 14:05 – 14:55 | 50 seg | **JC (Juan Carlos)** | Líder de Proyecto y Arquitecto de Software | Figuras 4 y 5 del informe |
+| **20** | 14:55 – 15:45 | 50 seg | **JJ (Juan José)** | Desarrollador Principal y Evaluador de Calidad | Figura 8 del informe y Tabla 10 |
+| **21** | 15:45 – 16:30 | 45 seg | **JC (Juan Carlos)** | Líder de Proyecto y Arquitecto de Software | Tabla 11 del informe |
+| **22** | 16:30 – 17:00 | 30 seg | **JJ (Juan José)** | Desarrollador Principal y Evaluador de Calidad | Repositorio en GitHub `Alboguaci/tejiendo-redes-nexusai` mostrando el informe PDF de 50 páginas y placa de créditos finales. |
 
 ---
 
-### BLOQUE 2 · Modelado Arquitectónico UML Formal (01:15 – 03:45)
+## 🎬 Guion Dialogado Verbátim
 
-**[EN PANTALLA: Transición fluida a la Figura 1 del informe: Diagrama de Componentes en alta resolución].**
+### TURNO 01 (00:00 – 00:45 · 45 seg) — 🔵 [JUAN CARLOS] JUAN CARLOS BENÍTEZ ROJAS
+* **Rol:** *Líder de Proyecto y Arquitecto de Software*
+* **En Pantalla:** Portada formal del informe en PDF mostrando título, unidad, docente y nombres de los integrantes. Cámaras de ambos expositores activas.
+* **Acción / Gesto:** Saludo formal a cámara, postura firme y presentación del equipo.
 
-**[01:15] JUAN CARLOS:**
-> «Iniciamos con el modelado formal del sistema, desarrollado bajo el enfoque de diagramas como código con PlantUML. Diseñamos con exactitud un diagrama por cada una de las tres perspectivas requeridas.
-> 
-> En pantalla observamos el **Diagrama de Componentes**. La arquitectura se estructura en cuatro capas desacopladas mediante inversión de dependencias:
-> 1. En la cúspide encontramos a los clientes omnicanal y el tablero de telemetría.
-> 2. La capa de coordinación alberga el API Gateway y el orquestador de la Saga. Este componente centraliza el enrutamiento inteligente, gestiona un pool de despacho dedicado y consulta tanto al balanceador de carga como al registro de Circuit Breakers.
-> 3. La capa de cómputo está conformada por nodos trabajadores idénticos y autónomos (`w1`, `w2` y `w3`), cada uno encapsulando los servicios cognitivos de *Triage*, *RAG* y *Compliance* tras una interfaz REST uniforme.
-> 4. Finalmente, la capa de persistencia la constituye el Event Broker, encargado de auditar de manera asíncrona cada transición de estado en disco. 
-> 
-> Lo crucial aquí es que las dependencias son estrictamente descendentes: los trabajadores ignoran quién los invoca y no conocen a sus pares, lo que permite añadir o remover nodos en caliente sin alterar al coordinador.»
-
-**[EN PANTALLA: Transición a la Figura 2: Diagrama de Secuencia de la Saga con interacción de hilos].**
-
-**[02:15] JUAN CARLOS:**
-> «Pasamos al **Diagrama de Secuencia**. A diferencia de diagramas convencionales que solo ilustran llamadas de red, este modelo desagrega explícitamente la interacción entre **nodos e hilos**.
-> 
-> Como se aprecia, cuando el cliente envía una petición POST al gateway, este toma un hilo libre del pool de despacho (identificados como hilos T1 a T8). Este hilo despacha la etapa de clasificación hacia el trabajador 1, que a su vez activa un hilo de su pool local (W1). El flujo nominal progresa hacia la etapa de recuperación RAG en el trabajador 2.
-> 
-> Sin embargo, el diagrama modela intencionalmente el escenario más complejo: en la etapa de cumplimiento normativo, el trabajador 3 detecta que la confianza semántica viola las políticas de seguridad. En lugar de reintentar inútilmente una falla de negocio, el orquestador inicia la **compensación inversa de la Saga**: primero revierte el contexto de RAG y luego la clasificación inicial. El cliente recibe una respuesta controlada con código HTTP 409 Conflict, asegurando que ninguna transacción quede en un estado inconsistente a medias.»
-
-**[EN PANTALLA: Transición a la Figura 3: Diagrama de Despliegue en red física y mapeo a Docker].**
-
-**[03:05] JUAN CARLOS:**
-> «Cerramos el modelado con el **Diagrama de Despliegue**. Representa la topología de red física: seis procesos de sistema operativo independientes comunicándose sobre la interfaz de red local en puertos dedicados: el coordinador en el puerto 8080, el broker en el 8090, los tres nodos de cómputo en los puertos 8101, 8102 y 8103, y el tablero web en el 8088.
-> 
-> El diagrama incluye además la correspondencia directa hacia una red bridge en contenedores Docker, demostrando que el desacoplamiento por sockets garantiza portabilidad inmediata hacia entornos orquestados como Kubernetes.»
+> «Un cordial saludo a la profesora Leidy Johana Polo y a nuestros compañeros. Mi nombre es Juan Carlos Benítez Rojas, líder de proyecto y arquitecto de software de esta entrega, y junto a mi compañero Juan José Córdoba Eraso presentamos la sustentación de la Actividad 4: Tejiendo redes: Arquitectura de software entre hilos y nodos. En la Actividad 2 planteamos la arquitectura conceptual de NexusAI, una plataforma orientada a microservicios cognitivos. El objetivo central que asumimos en esta entrega fue llevar esa arquitectura de los diagramas conceptuales a una red física distribuida real, con procesos independientes, hilos concurrentes y comunicación por red verificable.»
 
 ---
 
-### BLOQUE 3 · Selección y Justificación Teórica de Patrones de Diseño (03:45 – 05:15)
+### TURNO 02 (00:45 – 01:30 · 45 seg) — 🔴 [JUAN JOSÉ] JUAN JOSÉ CÓRDOBA ERASO
+* **Rol:** *Desarrollador Principal y Evaluador de Calidad*
+* **En Pantalla:** Diagrama de bloques general o animación introductoria del pipeline cognitivo (Triage, RAG, Compliance).
+* **Acción / Gesto:** Contacto visual a cámara, tono técnico explicativo.
 
-**[EN PANTALLA: Tabla 6 del informe: Síntesis de correspondencia entre problemas y patrones].**
-
-**[03:45] JUAN CARLOS:**
-> «Para resolver los desafíos de concurrencia y tolerancia a fallos, seleccionamos y articulamos **nueve patrones de diseño canónicos**, justificando cada uno desde la literatura de ingeniería de software:
-> 
-> 1. **Saga Orquestada:** Resuelve la consistencia distribuida sin recurrir a bloqueos pesados de dos fases (2PC), garantizando atomicidad mediante compensación reversa (Garcia-Molina & Salem, 1987).
-> 2. **Broker de Mensajería:** Desacopla temporalmente a productores y consumidores mediante colas asíncronas con persistencia en bitácora (Hohpe & Woolf, 2003).
-> 3. **Mediator:** Centraliza la topología en el coordinador, evitando dependencias punto a punto cuadráticas entre nodos (Gamma et al., 1994).
-> 4. **Proxy y API Gateway:** Provee un punto de acceso único, validación de esquemas y traducción unificada de estados a códigos HTTP (Fowler, 2014; Newman, 2021).
-> 5. **Circuit Breaker:** Previene fallos en cascada aislando nodos degradados tras tres fallos sucesivos en una máquina de estados Closed, Open y Half-Open (Nygard, 2018).
-> 6. **Bulkhead:** Confinamiento estanco de recursos; implementamos mamparos tanto en el despacho del gateway como en pools de hilos locales por cada trabajador (Nygard, 2018).
-> 7. **Observer Distribuido:** Notificación desacoplada de telemetría y eventos hacia el tablero y el auditor (Gamma et al., 1994).
-> 8. **Strategy:** Permite intercambiar dinámicamente algoritmos de balanceo entre Round-Robin y Least-Connections sin alterar la lógica de negocio (Gamma et al., 1994).
-> 9. **Retry Selectivo:** Reintenta automáticamente perturbaciones transitorias de red, distinguiendo formalmente entre caídas de nodo y rechazos de negocio (Sommerville, 2016).
-> 
-> Ahora le cedo la palabra a Juan José, quien nos guiará a través del código y la ejecución del prototipo.»
+> «Así es, Juan Carlos. En sistemas distribuidos, la red es intrínsecamente impredecible, falible y con latencia variable. Nuestro dominio resuelve el procesamiento de solicitudes omnicanal a través de un pipeline cognitivo estructurado en tres fases: clasificación rápida de intención o triage, recuperación de contexto semántico aumentado mediante RAG, y validación estricta de políticas corporativas y compliance. Para demostrar que esta arquitectura es escalable y resiliente, decidimos descartar cualquier simulación estética en navegador y construir un clúster físico operativo en Python que mida con rigor científico la concurrencia entre hilos y nodos.»
 
 ---
 
-### BLOQUE 4 · Arquitectura del Código y Modelo de Concurrencia (05:15 – 07:00)
+### TURNO 03 (01:30 – 02:15 · 45 seg) — 🔵 [JUAN CARLOS] JUAN CARLOS BENÍTEZ ROJAS
+* **Rol:** *Líder de Proyecto y Arquitecto de Software*
+* **En Pantalla:** Figura 1 del informe: Diagrama de Componentes de NexusAI 2.0 en PlantUML (capa cliente y capa de coordinación).
+* **Acción / Gesto:** Señalar con el cursor el API Gateway y el orquestador de la Saga.
 
-**[EN PANTALLA: Editor de código VS Code / OpenCode mostrando la estructura de carpetas en `prototipo/` y el archivo `coordinator.py`].**
-
-**[05:15] JUAN JOSÉ:**
-> «Muchas gracias, Juan Carlos. Como desarrollador del clúster, una de las principales decisiones de implementación fue construir NexusAI 2.0 utilizando **exclusivamente la biblioteca estándar de Python 3.14**. Prescindimos de frameworks web externos para demostrar que los principios de sistemas distribuidos —sockets TCP, manejo de concurrencia e hilos— pueden materializarse de forma transparente y determinista.
-> 
-> La solución se organiza en nueve módulos limpios: `coordinator.py` para el gateway y la orquestación, `worker.py` para los nodos de cómputo, `broker.py` para la mensajería y la bitácora JSONL, `cluster.py` para el control de ciclo de vida de procesos, junto a nuestras suites de carga y caos en `load_test.py` y `chaos_test.py`.»
-
-**[EN PANTALLA: Fragmento de código de `worker.py` resaltando `ThreadPoolExecutor(max_workers=4)` y luego `coordinator.py` con `ThreadPoolExecutor(max_workers=16)`].**
-
-**[05:55] JUAN JOSÉ:**
-> «El núcleo del sistema reside en su **modelo jerárquico de concurrencia**, articulado en cuatro niveles:
-> 
-> - **Primero, aislamiento a nivel de proceso:** Cada nodo corre en un proceso independiente del sistema operativo. Si un trabajador experimenta una fuga de memoria o un error crítico, no puede corromper el espacio de memoria del coordinador ni de los otros nodos.
-> - **Segundo, servidores HTTP multihilo:** Utilizamos la clase `ThreadingHTTPServer`, que delega cada conexión socket entrante a un hilo efímero, garantizando que el socket principal nunca se bloquee al recibir tráfico.
-> - **Tercero, pool de despacho en el coordinador:** Limitado a dieciséis hilos concurrentes. Este mamparo regula el flujo de entrada y previene la saturación del host ante avalanchas de peticiones.
-> - **Cuarto, mamparos de cómputo en trabajadores:** Cada trabajador confina sus ejecuciones a un pool estricto de cuatro hilos. Esto significa que con tres nodos activos, el clúster ofrece una capacidad instantánea de doce tareas simultáneas.
-> 
-> Todas las estructuras compartidas —como los contadores de métricas y los disyuntores— están protegidas por candados `threading.Lock` reentrantes de grano fino, manteniendo las secciones críticas por debajo de los diez microsegundos.»
+> «Comenzamos con el modelado formal del sistema, realizado en PlantUML bajo el principio de diagramas como código. En pantalla observamos el Diagrama de Componentes. La arquitectura se desacopla en cuatro niveles siguiendo el principio de inversión de dependencias. En la capa superior tenemos al cliente concurrente y el tablero web de observabilidad. Inmediatamente debajo se ubica el coordinador en el puerto 8080, que alberga el API Gateway y el orquestador de la Saga. Este componente mantiene la máquina de estados, administra un pool de despacho de dieciséis hilos para regular la admisión de tráfico y consulta al balanceador de carga y disyuntores de circuito.»
 
 ---
 
-### BLOQUE 5 · Demostración en Vivo: Flujo Nominal y Batería de Caos (07:00 – 10:15)
+### TURNO 04 (02:15 – 03:00 · 45 seg) — 🔴 [JUAN JOSÉ] JUAN JOSÉ CÓRDOBA ERASO
+* **Rol:** *Desarrollador Principal y Evaluador de Calidad*
+* **En Pantalla:** Figura 1 del informe: foco en los Nodos Trabajadores (w1, w2, w3) y el Event Broker en el puerto 8090.
+* **Acción / Gesto:** Resaltar las interfaces REST y el flujo asíncrono hacia el broker.
 
-**[EN PANTALLA: Disposición en pantalla dividida: a la izquierda, la terminal de comandos de Windows; a la derecha, el navegador web con `dashboard.html` en vivo].**
-
-**[07:00] JUAN JOSÉ:**
-> «Pasemos a la demostración en vivo. En pantalla tenemos a la derecha nuestro tablero de observabilidad en tiempo real, conectado a los endpoints de telemetría del coordinador y del broker. 
-> 
-> Vamos a emitir una ráfaga nominal de 120 transacciones con una concurrencia cliente de 24 hilos utilizando `load_test.py`».
-
-**[ACCIÓN: Juan José ejecuta en la terminal: `python load_test.py --tasks 120 --concurrency 24 --label demo_nominal`].**
-
-**[07:25] JUAN JOSÉ:**
-> «Observen el comportamiento: la consola reporta una tasa superior a **26 transacciones por segundo** y un percentil 95 de solo **1 033 milisegundos**. En el tablero, el contador de tareas completadas llega a 120, cero errores de sistema, la profundidad de la cola del broker se mantiene en cero porque los eventos se drenan continuamente hacia el archivo JSONL, y los tres Circuit Breakers permanecen en estado verde `CLOSED`.
-> 
-> Ahora someteremos la arquitectura a fallos reales mediante nuestra herramienta de caos.»
-
-#### Demostración de Caos 1: Nodo Lento (+300 ms de latencia)
-**[ACCIÓN: En terminal ejecuta: `python chaos_test.py latency --worker http://127.0.0.1:8102 --ms 300` y lanza una carga: `python load_test.py --tasks 120 --concurrency 24 --label demo_lento`].**
-
-**[08:00] JUAN JOSÉ:**
-> «Inyectamos 300 milisegundos de latencia artificial en el trabajador 2. El clúster no falla, pero se degrada: el throughput desciende a 8,8 rps y el p95 sube a 4 128 ms. ¿Por qué? Porque bajo la estrategia Round-Robin, un tercio de las peticiones queda atascada en el nodo lento, reteniendo los hilos de despacho del coordinador. Este hallazgo empírico fue fundamental y más adelante explicaremos cómo lo solucionamos.»
-
-#### Demostración de Caos 2: Nodo Defectuoso y Apertura de Circuit Breaker
-**[ACCIÓN: En terminal ejecuta: `python chaos_test.py fail --worker http://127.0.0.1:8102 --rate 1.0` y lanza la carga: `python load_test.py --tasks 120 --concurrency 24 --label demo_breaker`].**
-
-**[08:35] JUAN JOSÉ:**
-> «Ahora configuramos al nodo 2 para que falle el 100 % de sus peticiones. Miren el tablero: inmediatamente tras el tercer fallo consecutivo, el indicador de `w2` cambia a rojo en estado **OPEN**. 
-> 
-> Gracias al patrón Retry y Circuit Breaker, el coordinador deja de enrutar tráfico a ese nodo y desvía la carga hacia los nodos sanos 1 y 3. El resultado en consola es contundente: **100 % de transacciones completadas con éxito y cero errores de usuario** a 17,8 rps.»
-
-#### Demostración de Caos 3: Rechazo de Guardrail y Compensación Saga
-**[ACCIÓN: Ejecuta: `python chaos_test.py reset` y luego: `python chaos_test.py guardrail --url http://127.0.0.1:8080 --tasks 120 --rate 0.25`].**
-
-**[09:10] JUAN JOSÉ:**
-> «Restablecemos el clúster e inyectamos un 25 % de rechazos por políticas de seguridad en la etapa de cumplimiento. Miren la columna de compensaciones en el tablero: 31 transacciones fueron rechazadas y compensadas. El orquestador ejecutó la reversión en orden inverso, liberando el contexto de RAG y la clasificación, retornando al cliente un código HTTP 409 con trazabilidad auditable. La disponibilidad fue del 100 %: una compensación no es una falla de software, es una respuesta controlada de negocio.»
-
-#### Demostración de Caos 4: Caída Total de Nodo y Reinserción Elástica
-**[ACCIÓN: Ejecuta: `python chaos_test.py stop --worker http://127.0.0.1:8103` y corre la carga: `python load_test.py --tasks 120 --concurrency 24 --label demo_caida`].**
-
-**[09:45] JUAN JOSÉ:**
-> «Finalmente, provocamos la caída física total del trabajador 3, matando su proceso. La capacidad cae a dos nodos, pero el clúster procesa las 120 transacciones sin una sola caída del servicio. Al reiniciar el proceso de `w3` en una consola secundaria, el Circuit Breaker entra en estado **HALF-OPEN**, valida una petición de prueba y retorna automáticamente a **CLOSED**, recuperando el caudal nominal de inmediato.»
+> «En la parte inferior del diagrama encontramos los tres nodos trabajadores autónomos, operando en los puertos 8101, 8102 y 8103. Cada trabajador expone los servicios de Triage, RAG y Compliance tras un contrato REST homogéneo, ejecutando cada tarea en un pool privado de cuatro hilos. Lo fundamental es que los nodos desconocen la topología general y no guardan estado conversacional compartido. A su lado, el Event Broker en el puerto 8090 desacopla la auditoría: recibe eventos de forma asíncrona y los drena secuencialmente a una bitácora JSONL inmutable en disco, asegurando que la persistencia nunca bloquee la respuesta al cliente.»
 
 ---
 
-### BLOQUE 6 · Evaluación Cuantitativa y los 5 Ajustes Empíricos (10:15 – 12:15)
+### TURNO 05 (03:00 – 03:50 · 50 seg) — 🔵 [JUAN CARLOS] JUAN CARLOS BENÍTEZ ROJAS
+* **Rol:** *Líder de Proyecto y Arquitecto de Software*
+* **En Pantalla:** Figura 2 del informe: Diagrama de Secuencia de la Saga (interacción de hilos T1-T8 y W1-W3 en camino feliz).
+* **Acción / Gesto:** Trazar con el cursor las líneas de vida de los hilos de despacho y cómputo.
 
-**[EN PANTALLA: Tabla 8 y Figuras 4 y 5 del informe: Curvas de Throughput, Speedup y Latencia por cantidad de nodos].**
-
-**[10:15] JUAN JOSÉ:**
-> «La experimentación no se limitó a demostraciones cualitativas: registramos métricas consolidadas sobre una batería de 1 200 transacciones.
-> 
-> En escalabilidad horizontal, los resultados evidencian un comportamiento casi lineal:
-> - Con un nodo obtuvimos un throughput de 9,24 rps con un p95 de 3 185 ms.
-> - Al duplicar a dos nodos, el throughput subió a 18,14 rps, un speedup de 1,96× y 98,2 % de eficiencia.
-> - Al triplicar a tres nodos, alcanzamos **26,74 transacciones por segundo**, un speedup de **2,89×** y una eficiencia del **96,5 %**, reduciendo el p95 a solo **1 043 ms** (tres veces más rápido).»
-
-**[EN PANTALLA: Tabla 10 y Figura 8 del informe: Comparativa entre Round-Robin y Least-Connections].**
-
-**[10:55] JUAN CARLOS:**
-> «Y lo más valioso del proyecto fueron los **cinco ajustes arquitectónicos** que descubrimos y aplicamos a partir de las mediciones:
-> 
-> 1. **Resolución de Red en Windows:** En las pruebas iniciales, el sistema tardaba 8 500 ms por transacción. Descubrimos que usar el nombre `localhost` forzaba una resolución IPv6 fallida con timeout antes de pasar a IPv4. Cambiar estrictamente a `127.0.0.1` abatió la latencia por llamada de 2 042 ms a 2,15 ms: una aceleración brutal de **951 veces**.
-> 2. **Balanceo Adaptativo Least-Connections:** Como vimos en la demo, un nodo lento colapsa el balanceo Round-Robin. Implementamos la estrategia *Least-Connections*: al dirigir el tráfico hacia las instancias desocupadas, el throughput bajo el mismo nodo lento saltó de 8,99 a **20,59 rps** (un 129 % más de caudal) y retuvo el 75,7 % de la capacidad del clúster.
-> 3. **Contrapresión en el Broker:** Acotamos la cola del broker a 10 000 elementos con descarte del mensaje más antiguo (*drop oldest*) e integramos un hilo consumidor dedicado, logrando auditar 9 735 eventos con una cola residual en cero.
-> 4. **Tipificación de Errores en Contratos:** Diferenciamos en las respuestas JSON los errores de infraestructura de los errores de negocio (`kind: "business" | "node"`), evitando reintentos inútiles cuando una regla semántica rechaza la solicitud.
-> 5. **Dimensionamiento de Pools:** Elevamos el pool de despacho del gateway de 8 a 16 hilos, garantizando una sobre-suscripción balanceada frente a los doce slots de cómputo de los tres trabajadores.»
+> «El segundo modelo es el Diagrama de Secuencia, diseñado específicamente para evidenciar la interacción temporal entre hilos y nodos. Como pueden apreciar en las líneas de vida, distinguimos formalmente el pool de despacho del coordinador —representado por los hilos T1 a T8— y los pools locales de cada trabajador —con sus hilos W1 a W3—. Cuando una petición POST ingresa al gateway, se reserva un hilo de despacho que emite el evento saga.started al broker e invoca al trabajador 1. El trabajador asigna un hilo interno, procesa la clasificación y retorna el control. La secuencia progresa luego hacia el trabajador 2 para la recuperación de contexto RAG, orquestando la sincronización sin retención ociosa de recursos de cómputo.»
 
 ---
 
-### BLOQUE 7 · Conclusiones, Repositorio y Cierre (12:15 – 13:30)
+### TURNO 06 (03:50 – 04:35 · 45 seg) — 🔴 [JUAN JOSÉ] JUAN JOSÉ CÓRDOBA ERASO
+* **Rol:** *Desarrollador Principal y Evaluador de Calidad*
+* **En Pantalla:** Figura 2 del informe: foco en la rama inferior del diagrama (rechazo de compliance y compensación inversa).
+* **Acción / Gesto:** Señalar las flechas rojas de reversión de RAG y Triage hasta el código HTTP 409.
 
-**[EN PANTALLA: Navegador web mostrando el repositorio en GitHub `Alboguaci/tejiendo-redes-nexusai`, bajando por el README.md y mostrando los commits].**
-
-**[12:15] JUAN CARLOS:**
-> «Llegamos a las conclusiones finales del proyecto:
-> - Primero, confirmamos que la arquitectura de software no es un ejercicio estático de dibujo: la concurrencia, las colas y la propagación de fallos son propiedades físicas emergentes que solo se comprenden cuando el software se somete a carga en red.
-> - Segundo, la articulación de patrones como Saga, Circuit Breaker, Bulkhead y balanceo consciente de carga demostró ser indispensable para garantizar la disponibilidad absoluta y la integridad de los datos empresariales.
-> - Como trabajo futuro, proyectamos desacoplar el estado de la Saga hacia una base de datos distribuida con replicación Raft para tolerar la caída catastrófica del propio coordinador.»
-
-**[12:55] JUAN JOSÉ:**
-> «Toda la solución se encuentra completamente versionada y disponible en nuestro repositorio público de GitHub: `Alboguaci/tejiendo-redes-nexusai`. El repositorio incluye el código fuente, los diagramas PlantUML, los resultados JSON, las gráficas vectoriales y el informe técnico consolidado de 51 páginas bajo normas APA 7ma Edición. Cualquier evaluador puede clonar el proyecto y reproducir idénticamente los resultados ejecutando una única línea de comandos.»
-
-**[13:18] JUAN CARLOS:**
-> «Agradecemos a la profesora Leidy Johana Polo por su guía durante la unidad y por impulsarnos a construir prototipos con rigor de ingeniería. Muchas gracias por su atención y quedamos atentos a sus preguntas y retroalimentación.»
-
-**[EN PANTALLA: Placa final de créditos con nombres, programa de Ingeniería de Software, Tecnológica del Oriente y fecha: 11 de noviembre de 2026. Fin de la grabación].**
+> «Pero el diagrama modela intencionalmente la situación más crítica: en la etapa de compliance, el trabajador 3 detecta que la confianza semántica cae bajo el umbral ético de 0,90 y emite un rechazo de negocio. El orquestador reconoce que reintentar una violación de reglas es inútil y activa la compensación inversa de la Saga: primero envía una petición de compensación a RAG para liberar el contexto en caché y luego compensa Triage. Finalmente, emite saga.rolled_back y devuelve al cliente un código HTTP 409 Conflict con trazabilidad total. Se preserva así la consistencia eventual sin dejar registros inconsistentes.»
 
 ---
 
-## 📋 Consejos de Grabación para los Expositores
+### TURNO 07 (04:35 – 05:20 · 45 seg) — 🔵 [JUAN CARLOS] JUAN CARLOS BENÍTEZ ROJAS
+* **Rol:** *Líder de Proyecto y Arquitecto de Software*
+* **En Pantalla:** Figura 3 del informe: Diagrama de Despliegue en red física local y caja de equivalencia con Docker bridge.
+* **Acción / Gesto:** Mostrar los puertos locales y la topología de red.
 
-1. **Ritmo de Voz:** Mantener un tono dinámico, pausado y seguro. Evitar leer de forma mecánica; interioricen las ideas centrales de cada párrafo.
-2. **Coordinación de Pantalla:** Mientras Juan José ejecuta los comandos en la consola, Juan Carlos puede ir comentando los efectos en el diagrama o en el código, demostrando sinergia y trabajo colaborativo real.
-3. **Cuidado con el Zoom:** En la terminal y en el editor de código, aumenten la fuente con `Ctrl + +` para que las instrucciones, puertos y latencias sean perfectamente legibles en el video final a 1080p.
-4. **Visibilidad en YouTube:** Al subir el video, seleccionar obligatoriamente **«No listado» (Unlisted)** para que no sea público en búsquedas pero la docente pueda calificarlo sin requerir permisos especiales.
+> «El tercer pilar es el Diagrama de Despliegue, que mapea la topología física y de red. Se especifican seis procesos autónomos en el sistema operativo: el cliente de pruebas, el nodo coordinador en el puerto 8080, el broker en el 8090, los tres trabajadores de cómputo en los puertos 8101, 8102 y 8103, y el servidor estático del dashboard en el 8088. Todos se comunican sobre TCP/IP local mediante HTTP estándar. El diagrama incluye la correspondencia con una red bridge de contenedores Docker, confirmando que la arquitectura desacoplada por puertos permite migrar a contenedores sin modificar una sola línea de código.»
+
+---
+
+### TURNO 08 (05:20 – 06:10 · 50 seg) — 🔴 [JUAN JOSÉ] JUAN JOSÉ CÓRDOBA ERASO
+* **Rol:** *Desarrollador Principal y Evaluador de Calidad*
+* **En Pantalla:** Tabla 6 del informe: justificación teórica y empírica de patrones (Saga y Broker).
+* **Acción / Gesto:** Resaltar las referencias bibliográficas canónicas en la tabla.
+
+> «Entramos en la justificación de patrones de diseño. Cada patrón responde a un problema de distribución con sustento en la literatura. Primero, la Saga Orquestada, propuesta por Garcia-Molina y Salem en 1987. La elegimos porque el protocolo de confirmación en dos fases (2PC) generaría bloqueos devastadores en servicios cognitivos con tiempos variables; la orquestación centralizada nos da visibilidad total y orden inverso en compensaciones. Segundo, el Broker de Mensajería, documentado por Hohpe y Woolf. Centraliza los eventos en tópicos desacoplados con contrapresión, impidiendo que una sobrecarga en la auditoría degrade el tiempo de respuesta del pipeline principal.»
+
+---
+
+### TURNO 09 (06:10 – 07:00 · 50 seg) — 🔵 [JUAN CARLOS] JUAN CARLOS BENÍTEZ ROJAS
+* **Rol:** *Líder de Proyecto y Arquitecto de Software*
+* **En Pantalla:** Tabla 6 del informe: foco en Mediator, API Gateway y Circuit Breaker.
+* **Acción / Gesto:** Explicar la máquina de 3 estados del Circuit Breaker.
+
+> «Tercero, el patrón Mediator de Gamma et al., que recae en el coordinador para que los trabajadores no se conozcan entre sí, evitando dependencias cruzadas cuadráticas. Cuarto, el Proxy y API Gateway, según Fowler y Newman, que expone una fachada REST unificada, oculta la granularidad interna y traduce estados de negocio a códigos HTTP estándar. Quinto, el disyuntor Circuit Breaker, formulado por Michael Nygard. Implementamos una máquina de tres estados: CLOSED durante la operación normal, OPEN tras tres fallos consecutivos aislando el nodo durante cinco segundos de enfriamiento, y HALF-OPEN para probar si la instancia se recuperó antes de reintegrarla.»
+
+---
+
+### TURNO 10 (07:00 – 07:45 · 45 seg) — 🔴 [JUAN JOSÉ] JUAN JOSÉ CÓRDOBA ERASO
+* **Rol:** *Desarrollador Principal y Evaluador de Calidad*
+* **En Pantalla:** Tabla 6 del informe: foco en Bulkhead, Observer, Strategy y Retry.
+* **Acción / Gesto:** Señalar la flexibilidad de intercambiar estrategias de balanceo.
+
+> «Completamos con cuatro patrones adicionales: Bulkhead, que aísla hilos en compartimentos estancos para que la saturación de un trabajador no hunda al clúster; Observer Distribuido, que difunde eventos desde el broker hacia el dashboard en tiempo real; Strategy, que encapsula los algoritmos de balanceo Round-Robin y Least-Connections tras una interfaz intercambiable en caliente; y Retry Selectivo, que reintenta perturbaciones transitorias exclusivamente ante fallas de infraestructura, evitando reintentar errores de negocio. En total son nueve patrones articulados.»
+
+---
+
+### TURNO 11 (07:45 – 08:30 · 45 seg) — 🔵 [JUAN CARLOS] JUAN CARLOS BENÍTEZ ROJAS
+* **Rol:** *Líder de Proyecto y Arquitecto de Software*
+* **En Pantalla:** Estructura de archivos en el editor de código mostrando la carpeta `prototipo/` y sus 9 módulos.
+* **Acción / Gesto:** Desplegar el árbol de directorios y abrir `cluster.py`.
+
+> «Hablemos de la implementación del prototipo. El proyecto se desarrolló en Python 3.14 utilizando estrictamente la biblioteca estándar, lo que asegura total reproducibilidad en cualquier máquina sin instalar paquetes de terceros. La solución se descompone en nueve módulos de alta cohesión: common.py contiene estructuras de datos y el disyuntor; coordinator.py aloja el gateway y la orquestación; worker.py implementa los nodos de cómputo; broker.py la mensajería asíncrona; cluster.py gobierna el ciclo de vida de los subprocesos; y las suites de prueba residen en load_test.py y chaos_test.py. Ahora Juan José explicará cómo se traduce esto en concurrencia real.»
+
+---
+
+### TURNO 12 (08:30 – 09:20 · 50 seg) — 🔴 [JUAN JOSÉ] JUAN JOSÉ CÓRDOBA ERASO
+* **Rol:** *Desarrollador Principal y Evaluador de Calidad*
+* **En Pantalla:** Fragmentos de código en `coordinator.py` y `worker.py` mostrando ThreadPoolExecutor y threading.Lock.
+* **Acción / Gesto:** Resaltar los tamaños de pool: 16 hilos en gateway y 4 hilos por worker.
+
+> «El sistema gestiona la concurrencia física en cuatro niveles coordinados: primero, procesos autónomos con espacio de memoria aislado; segundo, servidores ThreadingHTTPServer que atienden cada socket en un hilo efímero; tercero, un pool de despacho en el coordinador de dieciséis hilos que acota la tasa de entrada; y cuarto, un pool de cómputo de cuatro hilos por cada trabajador. Esto nos brinda una capacidad simultánea de doce slots de trabajo en tres nodos. Para sincronizar contadores y estados de circuitos sin crear cuellos de botella, utilizamos candados threading.Lock de grano fino, manteniendo las secciones críticas por debajo de los diez microsegundos. Veamos esto en ejecución.»
+
+---
+
+### TURNO 13 (09:20 – 10:05 · 45 seg) — 🔵 [JUAN CARLOS] JUAN CARLOS BENÍTEZ ROJAS
+* **Rol:** *Líder de Proyecto y Arquitecto de Software*
+* **En Pantalla:** Pantalla dividida: terminal a la izquierda ejecutando `python run_cluster.py` y navegador web a la derecha con `dashboard.html`.
+* **Acción / Gesto:** Lanzar el comando de arranque del clúster y mostrar cómo el dashboard detecta los nodos en verde.
+
+> «Iniciamos la demostración en vivo. En la terminal izquierda ejecutamos el comando run_cluster.py configurando tres trabajadores y dieciséis hilos. El script lanza los seis subprocesos y sondea los endpoints de salud /health. En cuanto se abren los sockets, el dashboard operacional que vemos a la derecha detecta inmediatamente al coordinador, al broker y a los tres trabajadores en estado óptimo. El tablero reporta en tiempo real el throughput, percentiles de latencia, circuitos y la cola de eventos. Juan José procederá a inyectar la carga de trabajo.»
+
+---
+
+### TURNO 14 (10:05 – 10:55 · 50 seg) — 🔴 [JUAN JOSÉ] JUAN JOSÉ CÓRDOBA ERASO
+* **Rol:** *Desarrollador Principal y Evaluador de Calidad*
+* **En Pantalla:** Terminal ejecutando `python load_test.py --tasks 120 --concurrency 24 --label demo_nominal` y el dashboard actualizando gráficas.
+* **Acción / Gesto:** Ejecutar la carga y señalar las métricas en consola y en el dashboard.
+
+> «Lanzamos una ráfaga nominal de 120 transacciones con una concurrencia cliente de 24 hilos mediante load_test.py. Observen la consola: el clúster alcanza un throughput superior a 26 transacciones por segundo con un percentil 95 de solo 1 033 milisegundos. En el dashboard, el contador llega a 120 tareas completadas con cero errores de sistema. Miren la tabla del broker: los eventos publicados coinciden exactamente con los consumidos y la cola se mantiene en cero porque el hilo de persistencia drena continuamente hacia el archivo JSONL. Ahora someteremos el clúster a fallos intencionales.»
+
+---
+
+### TURNO 15 (10:55 – 11:40 · 45 seg) — 🔵 [JUAN CARLOS] JUAN CARLOS BENÍTEZ ROJAS
+* **Rol:** *Líder de Proyecto y Arquitecto de Software*
+* **En Pantalla:** Terminal inyectando latencia en w2: `python chaos_test.py latency --worker http://127.0.0.1:8102 --ms 300` y corriendo carga.
+* **Acción / Gesto:** Mostrar en el dashboard el aumento de latencia y la disminución de throughput.
+
+> «Primer escenario de caos: inyectamos 300 milisegundos de latencia artificial en el trabajador w2. El clúster no se cae, pero experimenta degradación: el throughput desciende a 8,8 rps y el p95 sube a 4 128 ms. Esto ocurre porque con balanceo Round-Robin ingenuo, un tercio de las peticiones va hacia el nodo retrasado y retiene los hilos de despacho del coordinador. Este experimento nos enseñó que el mamparo por trabajador no protege al coordinador cuando el balanceo es ciego a la carga; más adelante mostraremos cómo lo resolvimos.»
+
+---
+
+### TURNO 16 (11:40 – 12:30 · 50 seg) — 🔴 [JUAN JOSÉ] JUAN JOSÉ CÓRDOBA ERASO
+* **Rol:** *Desarrollador Principal y Evaluador de Calidad*
+* **En Pantalla:** Terminal inyectando fallo 100% en w2: `python chaos_test.py fail --worker http://127.0.0.1:8102 --rate 1.0` y corriendo carga.
+* **Acción / Gesto:** Mostrar en el dashboard el cambio del disyuntor de w2 a rojo OPEN y la continuidad del servicio.
+
+> «Segundo escenario de caos: configuramos a w2 para fallar el 100 % de sus llamadas. Miren atentamente el dashboard: tras el tercer fallo consecutivo, el indicador de w2 cambia a rojo en estado OPEN. El Circuit Breaker aísla el nodo y el reintento desvía el tráfico hacia w1 y w3. La consola reporta un resultado categórico: 120 transacciones atendidas con 100 % de éxito a 17,8 rps, cero errores para el cliente. El sistema perdió capacidad temporalmente, pero preservó la disponibilidad absoluta sin sufrir caídas en cascada.»
+
+---
+
+### TURNO 17 (12:30 – 13:15 · 45 seg) — 🔵 [JUAN CARLOS] JUAN CARLOS BENÍTEZ ROJAS
+* **Rol:** *Líder de Proyecto y Arquitecto de Software*
+* **En Pantalla:** Terminal ejecutando prueba de guardrails: `python chaos_test.py guardrail --tasks 120 --rate 0.25`.
+* **Acción / Gesto:** Señalar en el dashboard la columna de transacciones compensadas (31) y código HTTP 409.
+
+> «Tercer escenario: forzamos que el 25 % de las transacciones sea rechazado en la etapa de compliance por violar guardrails de seguridad. Observen el tablero: 89 transacciones completaron normalmente y 31 fueron rechazadas y compensadas por la Saga. El orquestador ejecutó la reversión inversa de RAG y Triage en menos de 100 milisegundos, retornando al cliente un código HTTP 409 con traza auditable. La tasa de atención fue del 100 %, demostrando que una compensación ordenada es una respuesta de negocio válida y no un fallo de arquitectura.»
+
+---
+
+### TURNO 18 (13:15 – 14:05 · 50 seg) — 🔴 [JUAN JOSÉ] JUAN JOSÉ CÓRDOBA ERASO
+* **Rol:** *Desarrollador Principal y Evaluador de Calidad*
+* **En Pantalla:** Terminal matando proceso de w3 (`chaos_test.py stop`), corriendo carga y luego reiniciando w3.
+* **Acción / Gesto:** Mostrar cómo w3 pasa a HALF-OPEN y vuelve a CLOSED recuperando el throughput.
+
+> «Cuarto escenario de caos: simulamos una falla catastrófica apagando físicamente el proceso del trabajador w3. El clúster absorbe la pérdida y atiende la totalidad de la carga operando con dos nodos. Posteriormente, reiniciamos el proceso de w3 en una terminal secundaria. El disyuntor entra automáticamente en estado HALF-OPEN, envía una petición de prueba, comprueba que el nodo responde y conmuta nuevamente a CLOSED, recuperando el caudal nominal de 23,5 rps de forma completamente elástica y transparente.»
+
+---
+
+### TURNO 19 (14:05 – 14:55 · 50 seg) — 🔵 [JUAN CARLOS] JUAN CARLOS BENÍTEZ ROJAS
+* **Rol:** *Líder de Proyecto y Arquitecto de Software*
+* **En Pantalla:** Figuras 4 y 5 del informe: gráficas de Escalabilidad, Throughput y reducción de latencia p95.
+* **Acción / Gesto:** Explicar las curvas de speedup frente al límite lineal ideal.
+
+> «Revisemos los resultados cuantitativos consolidados sobre una muestra de 1 200 transacciones. En escalabilidad horizontal obtuvimos un comportamiento casi lineal: con un nodo registramos 9,24 rps; con dos nodos subimos a 18,14 rps con un speedup de 1,96× y 98,2 % de eficiencia; y con tres nodos alcanzamos 26,74 rps, un speedup de 2,89× con una eficiencia sobresaliente del 96,5 %, superando con creces la meta mínima del 80 %. Simultáneamente, la latencia en el percentil 95 cayó de 3 185 milisegundos a solo 1 043 ms, una reducción de más del triple gracias al alivio de colas.»
+
+---
+
+### TURNO 20 (14:55 – 15:45 · 50 seg) — 🔴 [JUAN JOSÉ] JUAN JOSÉ CÓRDOBA ERASO
+* **Rol:** *Desarrollador Principal y Evaluador de Calidad*
+* **En Pantalla:** Figura 8 del informe y Tabla 10: Comparación de balanceo Round-Robin vs Least-Connections.
+* **Acción / Gesto:** Resaltar el incremento del 129% de throughput y la reducción del 62% en p95.
+
+> «Lo más enriquecedor del proyecto fueron los cinco ajustes derivados de la medición empírica. El primero fue resolver la trampa de localhost en Windows: la resolución intentaba IPv6 antes de IPv4, penalizando cada llamada en más de dos segundos; forzar 127.0.0.1 abatió la latencia de 2 042 ms a 2,15 ms, un factor de 951 veces más rápido. El segundo ajuste fue la estrategia Least-Connections: bajo un nodo lento, como vimos antes, Round-Robin colapsa a 8,9 rps; al balancear por menor número de tareas activas, el throughput saltó a 20,59 rps, un 129 % más de caudal, reteniendo el 75,7 % de la capacidad del clúster.»
+
+---
+
+### TURNO 21 (15:45 – 16:30 · 45 seg) — 🔵 [JUAN CARLOS] JUAN CARLOS BENÍTEZ ROJAS
+* **Rol:** *Líder de Proyecto y Arquitecto de Software*
+* **En Pantalla:** Tabla 11 del informe: Balance de Metas cumplidas y conclusiones arquitectónicas.
+* **Acción / Gesto:** Contacto visual a cámara, tono de síntesis y reflexión profesional.
+
+> «Los ajustes restantes incluyeron dotar al broker de contrapresión con descarte ordenado y consumidor dedicado, tipificar en los contratos los errores de negocio frente a fallos de infraestructura para evitar reintentos inútiles, y calibrar el pool del gateway a dieciséis hilos. Como conclusión central, confirmamos que la arquitectura de software no es un ejercicio estático de diseño: las colas, las latencias de transporte y la contención física son propiedades emergentes que solo se comprenden cuando el software se somete a carga en red.»
+
+---
+
+### TURNO 22 (16:30 – 17:00 · 30 seg) — 🔴 [JUAN JOSÉ] JUAN JOSÉ CÓRDOBA ERASO
+* **Rol:** *Desarrollador Principal y Evaluador de Calidad*
+* **En Pantalla:** Repositorio en GitHub `Alboguaci/tejiendo-redes-nexusai` mostrando el informe PDF de 50 páginas y placa de créditos finales.
+* **Acción / Gesto:** Mostrar el repositorio en el navegador y despedida final del equipo.
+
+> «Todo el código fuente, los diagramas PlantUML, las suites de prueba y el informe técnico consolidado de 50 páginas bajo normas APA 7ma Edición se encuentran disponibles en nuestro repositorio público de GitHub: Alboguaci/tejiendo-redes-nexusai. Agradecemos a la profesora Leidy Johana Polo por su valiosa orientación académica. Muchas gracias por su atención.»
+
+---
