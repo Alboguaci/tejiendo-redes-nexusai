@@ -1,0 +1,188 @@
+{
+  "tasks": 120,
+  "concurrency": 24,
+  "resultados": [
+    {
+      "strategy": "round-robin",
+      "baseline": {
+        "tasks": 120,
+        "completed": 120,
+        "rolled_back": 0,
+        "errors": 0,
+        "handled_rate_pct": 100.0,
+        "completion_rate_pct": 100.0,
+        "wall_time_s": 4.606,
+        "throughput_rps": 26.05,
+        "latency_ms": {
+          "avg": 826.96,
+          "p50": 830.42,
+          "p95": 1111.89,
+          "p99": 1239.1,
+          "max": 1265.49
+        },
+        "latency_ok_ms": {
+          "p50": 830.42,
+          "p95": 1111.89
+        },
+        "status_counts": {
+          "200": 120,
+          "409": 0,
+          "other": 0
+        }
+      },
+      "slow_node": {
+        "tasks": 120,
+        "completed": 120,
+        "rolled_back": 0,
+        "errors": 0,
+        "handled_rate_pct": 100.0,
+        "completion_rate_pct": 100.0,
+        "wall_time_s": 13.346,
+        "throughput_rps": 8.99,
+        "latency_ms": {
+          "avg": 2382.01,
+          "p50": 2503.66,
+          "p95": 4177.66,
+          "p99": 4967.95,
+          "max": 5263.63
+        },
+        "latency_ok_ms": {
+          "p50": 2503.66,
+          "p95": 4177.66
+        },
+        "status_counts": {
+          "200": 120,
+          "409": 0,
+          "other": 0
+        }
+      },
+      "workers": [
+        {
+          "id": "w1",
+          "url": "http://127.0.0.1:8101",
+          "threads": 4,
+          "breaker": "CLOSED",
+          "consecutive_failures": 0,
+          "inflight": 0,
+          "dispatched": 252,
+          "successes": 252,
+          "failures": 0
+        },
+        {
+          "id": "w2",
+          "url": "http://127.0.0.1:8102",
+          "threads": 4,
+          "breaker": "CLOSED",
+          "consecutive_failures": 0,
+          "inflight": 0,
+          "dispatched": 252,
+          "successes": 252,
+          "failures": 0
+        },
+        {
+          "id": "w3",
+          "url": "http://127.0.0.1:8103",
+          "threads": 4,
+          "breaker": "CLOSED",
+          "consecutive_failures": 0,
+          "inflight": 0,
+          "dispatched": 252,
+          "successes": 252,
+          "failures": 0
+        }
+      ],
+      "degradacion_pct": 65.49
+    },
+    {
+      "strategy": "least-connections",
+      "baseline": {
+        "tasks": 120,
+        "completed": 120,
+        "rolled_back": 0,
+        "errors": 0,
+        "handled_rate_pct": 100.0,
+        "completion_rate_pct": 100.0,
+        "wall_time_s": 4.412,
+        "throughput_rps": 27.2,
+        "latency_ms": {
+          "avg": 815.22,
+          "p50": 837.75,
+          "p95": 997.64,
+          "p99": 1222.59,
+          "max": 1263.89
+        },
+        "latency_ok_ms": {
+          "p50": 837.75,
+          "p95": 997.64
+        },
+        "status_counts": {
+          "200": 120,
+          "409": 0,
+          "other": 0
+        }
+      },
+      "slow_node": {
+        "tasks": 120,
+        "completed": 120,
+        "rolled_back": 0,
+        "errors": 0,
+        "handled_rate_pct": 100.0,
+        "completion_rate_pct": 100.0,
+        "wall_time_s": 5.827,
+        "throughput_rps": 20.59,
+        "latency_ms": {
+          "avg": 1064.05,
+          "p50": 940.16,
+          "p95": 2223.88,
+          "p99": 2419.25,
+          "max": 2584.83
+        },
+        "latency_ok_ms": {
+          "p50": 940.16,
+          "p95": 2223.88
+        },
+        "status_counts": {
+          "200": 120,
+          "409": 0,
+          "other": 0
+        }
+      },
+      "workers": [
+        {
+          "id": "w1",
+          "url": "http://127.0.0.1:8101",
+          "threads": 4,
+          "breaker": "CLOSED",
+          "consecutive_failures": 0,
+          "inflight": 0,
+          "dispatched": 286,
+          "successes": 286,
+          "failures": 0
+        },
+        {
+          "id": "w2",
+          "url": "http://127.0.0.1:8102",
+          "threads": 4,
+          "breaker": "CLOSED",
+          "consecutive_failures": 0,
+          "inflight": 0,
+          "dispatched": 184,
+          "successes": 184,
+          "failures": 0
+        },
+        {
+          "id": "w3",
+          "url": "http://127.0.0.1:8103",
+          "threads": 4,
+          "breaker": "CLOSED",
+          "consecutive_failures": 0,
+          "inflight": 0,
+          "dispatched": 286,
+          "successes": 286,
+          "failures": 0
+        }
+      ],
+      "degradacion_pct": 24.3
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "descripcion": "Costo por peticion HTTP segun el host usado (5 repeticiones)",
+  "localhost_ms": [
+    2081.69,
+    2028.3,
+    2036.25,
+    2030.56,
+    2032.4
+  ],
+  "loopback_ms": [
+    2.21,
+    2.15,
+    2.24,
+    2.13,
+    2.0
+  ],
+  "promedio_localhost_ms": 2041.84,
+  "promedio_loopback_ms": 2.15,
+  "mejora_veces": 951.5
+}
