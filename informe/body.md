@@ -736,8 +736,8 @@ El repositorio y el video se entregan como complementos del informe. El reposito
 [[TABLA|Enlaces de los entregables complementarios]]
 | Entregable | Ubicación |
 |---|---|
-| Repositorio del código | Pendiente de publicar |
+| Repositorio del código | https://github.com/Alboguaci/tejiendo-redes-nexusai |
 | Video demostrativo (YouTube, no listado) | Pendiente de publicar |
 | Informe en PDF | Documento adjunto en el aula virtual |
 
-El video se configuró como no listado para que solo las personas con el enlace puedan acceder, conforme a la indicación de la docente. La demostración sigue el mismo orden del Anexo D: arranque del clúster, carga base, latencia inyectada, fallo total de un nodo, compensación por guardrail, recuperación y lectura del tablero. Cada escenario se muestra con la salida de la consola y el tablero en paralelo, de modo que la evidencia visual coincida con las cifras del informe.
+El repositorio es público y su historial separa la configuración inicial, el prototipo, los diagramas, las pruebas, el informe y la documentación, de modo que cualquier evaluador puede reconstruir el proyecto commit por commit. El video se configuró como no listado para que solo las personas con el enlace puedan acceder, conforme a la indicación de la docente. La demostración sigue el mismo orden del Anexo D: arranque del clúster, carga base, latencia inyectada, fallo total de un nodo, compensación por guardrail, recuperación y lectura del tablero. Cada escenario se muestra con la salida de la consola y el tablero en paralelo, de modo que la evidencia visual coincida con las cifras del informe.

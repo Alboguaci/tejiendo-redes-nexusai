@@ -227,6 +227,7 @@ Corporación Escuela Tecnológica del Oriente · Ingeniería de Software · 2026
 
 | Entregable | Ubicación |
 |---|---|
+| Repositorio del código | https://github.com/Alboguaci/tejiendo-redes-nexusai |
 | Informe APA 7 (PDF) | `informe/Informe_Actividad4_Tejiendo_Redes.pdf` |
 | Diagramas UML (PlantUML, PNG, SVG) | `diagramas/` |
 | Prototipo ejecutable | `prototipo/` |

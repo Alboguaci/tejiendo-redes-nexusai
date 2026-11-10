@@ -12,6 +12,8 @@ pruebas/logs/*.log
 # Archivos temporales de Word y del sistema
 ~$*
 *.tmp
+informe/_export_tmp.pdf
+informe/convertir_pdf.log
 Thumbs.db
 desktop.ini
 

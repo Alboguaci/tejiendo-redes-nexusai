@@ -221,6 +221,31 @@ def add_table(doc, rows, number, title, note=""):
     table.autofit = True
     _set_table_borders(table)
 
+    # Una cadena sin espacios (por ejemplo una URL) dentro de una celda
+    # estrecha puede hacer que Word entre en un bucle de maquetacion al
+    # exportar a PDF. Cuando la tabla es de dos columnas y aparece un token
+    # largo se fijan anchos explicitos para que el texto quepa en una linea.
+    longest_token = max(
+        (len(token) for row in rows for value in row for token in value.split()),
+        default=0,
+    )
+    if cols == 2 and longest_token >= 45:
+        def _longest_word(text):
+            return max((len(token) for token in text.split()), default=0)
+
+        first = min(40, max(12, max(_longest_word(row[0]) for row in rows if row)))
+        second = max(longest_token, 20)
+        total = first + second
+        widths = [max(1.4, TEXT_WIDTH_IN * first / total), 0]
+        widths[1] = TEXT_WIDTH_IN - widths[0]
+        table.autofit = False
+        layout = OxmlElement("w:tblLayout")
+        layout.set(qn("w:type"), "fixed")
+        table._tbl.tblPr.append(layout)
+        for row in table.rows:
+            for idx, width in enumerate(widths):
+                row.cells[idx].width = Inches(width)
+
     for r_idx, row in enumerate(rows):
         for c_idx in range(cols):
             value = row[c_idx] if c_idx < len(row) else ""
