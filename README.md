@@ -19,7 +19,7 @@ horizontal y se degrada de manera controlada cuando un nodo falla.
 | Entregable | Ubicación |
 |---|---|
 | Repositorio del código | <https://github.com/Alboguaci/tejiendo-redes-nexusai> |
-| Informe APA 7 (51 páginas) | [`informe/Informe_Actividad4_Tejiendo_Redes.pdf`](informe/Informe_Actividad4_Tejiendo_Redes.pdf) |
+| Informe APA 7 (50 páginas) | [`informe/Informe_Actividad4_Tejiendo_Redes.pdf`](informe/Informe_Actividad4_Tejiendo_Redes.pdf) |
 | Informe editable | [`informe/Informe_Actividad4_Tejiendo_Redes.docx`](informe/Informe_Actividad4_Tejiendo_Redes.docx) |
 | Diagramas UML (componentes, secuencia, despliegue) | [`diagramas/`](diagramas/) |
 | Prototipo ejecutable | [`prototipo/`](prototipo/) |
