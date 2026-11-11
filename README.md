@@ -28,6 +28,9 @@ horizontal y se degrada de manera controlada cuando un nodo falla.
 | Resultados, gráficas y evidencias | [`pruebas/`](pruebas/), [`evidencias/`](evidencias/) |
 | Guion de sustentación oral (17 min, .docx) | [`informe/Guion_Presentacion_Oral_17min.docx`](informe/Guion_Presentacion_Oral_17min.docx) |
 | Guion del video (markdown) | [`guion_video.md`](guion_video.md) |
+| Video maestro de sustentación (16:18 min, 1080p) | [`video_sustentacion/Sustentacion_NexusAI2_Actividad4_16min.mp4`](video_sustentacion/) |
+| Diapositivas de sustentación (Full HD) | [`video_sustentacion/slides/`](video_sustentacion/slides/) |
+| Pipeline automatizado de video | [`render_todo.py`](render_todo.py) |
 | Video demostrativo (YouTube, no listado) | Pendiente de publicar (enlace en plataforma institucional) |
 
 ---
@@ -101,12 +104,16 @@ Detalle en [`pruebas/resumen.md`](pruebas/resumen.md).
 
 ```
 Actividad4_Tejiendo_Redes/
-├── informe/      Informe APA 7 (.docx, .pdf) y fuentes del documento
-├── diagramas/    Tres diagramas PlantUML (.puml, .png, .svg) + renderizador
-├── prototipo/    Clúster distribuido en Python (9 módulos + dashboard)
-├── pruebas/      Suite de benchmark, resultados JSON y gráficas
-├── evidencias/   Capturas para el informe y el video
-└── guion_video.md
+├── informe/             Informe APA 7 (20 pág .docx, .pdf), Anexos (5 pág) y Guión oral (.docx)
+├── diagramas/           Tres diagramas PlantUML (.puml, .png, .svg) + renderizador
+├── prototipo/           Clúster distribuido en Python (9 módulos + dashboard)
+├── pruebas/             Suite de benchmark, resultados JSON y gráficas
+├── evidencias/          Capturas para el informe y el video
+├── video_sustentacion/  Video maestro (16:18 min, 1080p), diapositivas y pipeline
+├── guion_video.md       Guión sincronizado turnos 01-22 (Juan Carlos & Juan José)
+├── render_todo.py       Pipeline maestro de renderizado y normalización EBU R128
+├── generar_diapositivas.py
+└── generar_cortinillas.py
 ```
 
 Corporación Escuela Tecnológica del Oriente · Ingeniería de Software · 2026.

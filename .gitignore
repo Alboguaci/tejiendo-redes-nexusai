@@ -6,7 +6,7 @@ __pycache__/
 venv/
 .pytest_cache/
 
-# Logs de ejecución del clúster (se regeneran al correr el prototipo)
+# Logs de ejecuciÃ³n del clÃºster (se regeneran al correr el prototipo)
 pruebas/logs/*.log
 
 # Archivos temporales de Word y del sistema
@@ -21,3 +21,12 @@ desktop.ini
 .vscode/
 .idea/
 *.swp
+
+# Video produccion: excluir crudos pesados, segmentos intermedios y video maestro pesado (>50MB)
+video_sustentacion/crudos/
+video_sustentacion/segmentos/
+video_sustentacion/verificacion_frames/
+video_sustentacion/*.mp4
+video_sustentacion/*.tmp
+audio_samples/
+*.mp3
