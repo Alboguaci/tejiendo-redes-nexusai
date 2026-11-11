@@ -65,7 +65,7 @@ Asimismo, se asume que las operaciones de compensación dentro de la Saga son id
 | matplotlib / numpy | 3.11 / 2.5 | Generación de gráficas experimentales | Análisis estadístico riguroso y renderizado de métricas |
 | Microsoft Word | Office 16 | Compilación del informe formal | Entorno para maquetación tipográfica estricta bajo normas APA 7 |
 | GitHub | — | Repositorio remoto colaborativo | Control de versiones, trazabilidad y gestión de artefactos |
-| YouTube (no listado) | — | Sustentación técnica del sistema | Demostración visual y verificación operativa del clúster |
+| YouTube (no listado) | — | Sustentación técnica del sistema | Demostración visual y verificación operativa del clúster (https://youtu.be/IqVim9WxDhA) |
 
 
 # §1§ Análisis y planificación del proyecto
@@ -265,7 +265,7 @@ La implementación y evaluación experimental de NexusAI 2.0 confirman que la ar
 
 El modelado formal en PlantUML permitió desacoplar con rigor las capas lógicas, detallar la interacción de hilos y estructurar una topología de microservicios portable hacia contenedores. Experimentalmente, la articulación de nueve patrones de diseño demostró alta eficacia: la separación de nodos sin estado posibilitó un speedup de 2,89x y una eficiencia del 96,5 %; el Circuit Breaker y los mamparos mantuvieron disponibilidad perfecta ante perturbaciones severas; y la Saga orquestada preservó la consistencia eventual mediante compensaciones inversas idempotentes. Finalmente, optimizaciones como la resolución de sockets en `127.0.0.1` y el balanceo adaptativo *Least-Connections* resultaron decisivos para maximizar el caudal transaccional.
 
-Para la verificación empírica detallada, los esquemas JSON de contratos, las bitácoras de auditoría en JSONL, las salidas de consola completas y las guías de comandos reproducibles, consúltese el compendio adjunto *Anexos Técnicos y Evidencias de Ejecución* (`informe/Anexos_Tecnicos_NexusAI2.pdf`) y el repositorio oficial del proyecto en GitHub (https://github.com/Alboguaci/tejiendo-redes-nexusai).
+Para la verificación empírica detallada, los esquemas JSON de contratos, las bitácoras de auditoría en JSONL, las salidas de consola completas y las guías de comandos reproducibles, consúltese el compendio adjunto *Anexos Técnicos y Evidencias de Ejecución* (`informe/Anexos_Tecnicos_NexusAI2.pdf`), el repositorio oficial del proyecto en GitHub (https://github.com/Alboguaci/tejiendo-redes-nexusai) y el video demostrativo de sustentación técnica (https://youtu.be/IqVim9WxDhA).
 
 
 # §1§ Referencias

@@ -31,7 +31,7 @@ horizontal y se degrada de manera controlada cuando un nodo falla.
 | Video maestro de sustentación (16:18 min, 1080p) | [`video_sustentacion/Sustentacion_NexusAI2_Actividad4_16min.mp4`](video_sustentacion/) |
 | Diapositivas de sustentación (Full HD) | [`video_sustentacion/slides/`](video_sustentacion/slides/) |
 | Pipeline automatizado de video | [`render_todo.py`](render_todo.py) |
-| Video demostrativo (YouTube, no listado) | Pendiente de publicar (enlace en plataforma institucional) |
+| Video demostrado de sustentación (YouTube) | <https://youtu.be/IqVim9WxDhA> |
 
 ---
 

@@ -7,6 +7,8 @@
   - **[JC] Juan Carlos Benítez Rojas:** Líder de Proyecto y Arquitecto de Software (11 intervenciones).
   - **[JJ] Juan José Córdoba Eraso:** Desarrollador Principal y Evaluador de Calidad (11 intervenciones).
 - **Formato de Entrega:** Video con cámaras activas y pantalla compartida, subido a YouTube en modo «No listado».
+- **Enlace Oficial de Publicación (YouTube):** <https://youtu.be/IqVim9WxDhA>
+- **Archivo Local Maestro (Full HD 1080p, 16:18 min):** `video_sustentacion/Sustentacion_NexusAI2_Actividad4_16min.mp4`
 
 ---
 
