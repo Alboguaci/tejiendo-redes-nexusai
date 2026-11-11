@@ -22,11 +22,16 @@ desktop.ini
 .idea/
 *.swp
 
-# Video produccion: excluir crudos pesados, segmentos intermedios y video maestro pesado (>50MB)
-video_sustentacion/crudos/
-video_sustentacion/segmentos/
-video_sustentacion/verificacion_frames/
-video_sustentacion/*.mp4
-video_sustentacion/*.tmp
+# Documentos editables y guiones locales (en GitHub solo van los PDFs finales)
+informe/*.docx
+guion_video.md
+
+# Produccion audiovisual local (alojado oficialmente en YouTube)
+video_sustentacion/
+render_todo.py
+generar_diapositivas.py
+generar_cortinillas.py
+inspeccionar_videos.py
+extraer_muestras_audio.py
 audio_samples/
 *.mp3

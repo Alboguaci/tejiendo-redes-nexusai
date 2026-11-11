@@ -21,17 +21,10 @@ horizontal y se degrada de manera controlada cuando un nodo falla.
 | Repositorio central de código | <https://github.com/Alboguaci/tejiendo-redes-nexusai> |
 | Informe técnico APA 7 (20 páginas) | [`informe/Informe_Actividad4_Tejiendo_Redes.pdf`](informe/Informe_Actividad4_Tejiendo_Redes.pdf) |
 | Compendio de anexos técnicos (5 páginas) | [`informe/Anexos_Tecnicos_NexusAI2.pdf`](informe/Anexos_Tecnicos_NexusAI2.pdf) |
-| Informe técnico editable (.docx) | [`informe/Informe_Actividad4_Tejiendo_Redes.docx`](informe/Informe_Actividad4_Tejiendo_Redes.docx) |
-| Anexos técnicos editables (.docx) | [`informe/Anexos_Tecnicos_NexusAI2.docx`](informe/Anexos_Tecnicos_NexusAI2.docx) |
 | Diagramas UML (componentes, secuencia, despliegue) | [`diagramas/`](diagramas/) |
 | Prototipo ejecutable | [`prototipo/`](prototipo/) |
 | Resultados, gráficas y evidencias | [`pruebas/`](pruebas/), [`evidencias/`](evidencias/) |
-| Guion de sustentación oral (17 min, .docx) | [`informe/Guion_Presentacion_Oral_17min.docx`](informe/Guion_Presentacion_Oral_17min.docx) |
-| Guion del video (markdown) | [`guion_video.md`](guion_video.md) |
-| Video maestro de sustentación (16:18 min, 1080p) | [`video_sustentacion/Sustentacion_NexusAI2_Actividad4_16min.mp4`](video_sustentacion/) |
-| Diapositivas de sustentación (Full HD) | [`video_sustentacion/slides/`](video_sustentacion/slides/) |
-| Pipeline automatizado de video | [`render_todo.py`](render_todo.py) |
-| Video demostrado de sustentación (YouTube) | <https://youtu.be/IqVim9WxDhA> |
+| Video de sustentación oral (YouTube) | <https://youtu.be/IqVim9WxDhA> |
 
 ---
 
@@ -104,16 +97,11 @@ Detalle en [`pruebas/resumen.md`](pruebas/resumen.md).
 
 ```
 Actividad4_Tejiendo_Redes/
-├── informe/             Informe APA 7 (20 pág .docx, .pdf), Anexos (5 pág) y Guión oral (.docx)
-├── diagramas/           Tres diagramas PlantUML (.puml, .png, .svg) + renderizador
-├── prototipo/           Clúster distribuido en Python (9 módulos + dashboard)
-├── pruebas/             Suite de benchmark, resultados JSON y gráficas
-├── evidencias/          Capturas para el informe y el video
-├── video_sustentacion/  Video maestro (16:18 min, 1080p), diapositivas y pipeline
-├── guion_video.md       Guión sincronizado turnos 01-22 (Juan Carlos & Juan José)
-├── render_todo.py       Pipeline maestro de renderizado y normalización EBU R128
-├── generar_diapositivas.py
-└── generar_cortinillas.py
+├── informe/      Informe APA 7 (.pdf), anexos técnicos y scripts
+├── diagramas/    Tres diagramas PlantUML (.puml, .png, .svg) + renderizador
+├── prototipo/    Clúster distribuido en Python (9 módulos + dashboard)
+├── pruebas/      Suite de benchmark, resultados JSON y gráficas
+└── evidencias/   Capturas de consola y tablero de observabilidad
 ```
 
 Corporación Escuela Tecnológica del Oriente · Ingeniería de Software · 2026.
