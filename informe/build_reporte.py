@@ -1,18 +1,18 @@
 """Construye el informe técnico bajo normas APA 7 de la Actividad 4.
 
-Toma ``body.md`` como fuente unica de contenido y produce un .docx con:
+Toma ``body.md`` como fuente única de contenido y produce un .docx con:
 
-* portada institucional, resumen, indice automatico (campo TOC);
-* jerarquia de titulos APA 7 (niveles 1 a 3, sin numeracion);
-* figuras con numero, titulo y nota (APA 7);
-* tablas con numero, titulo, encabezado en negrita y bordes APA;
-* referencias con sangria francesa y orden alfabetico;
-* numeracion de pagina en el encabezado.
+* portada institucional, resumen, índice automático (campo TOC);
+* jerarquía de títulos APA 7 (niveles 1 a 3, sin numeración);
+* figuras con número, título y nota (APA 7);
+* tablas con número, título, encabezado en negrita y bordes APA;
+* referencias con sangría francesa y orden alfabético;
+* numeración de página en el encabezado.
 
 Marcas propias en ``body.md``:
 
-    [[TABLA|Titulo de la tabla]]      precede a la tabla markdown
-    [[FIG|ruta/relativa.png|Titulo|Nota]]
+    [[TABLA|Título de la tabla]]      precede a la tabla markdown
+    [[FIG|ruta/relativa.png|Título|Nota]]
 
 Uso:
     python build_reporte.py
@@ -70,11 +70,11 @@ def set_run(run, size=12, bold=False, italic=False, color=None):
     return run
 
 
-def base_paragraph(paragraph, first_indent=0.0, left_indent=0.0, spacing=2.0, align=None):
+def base_paragraph(paragraph, first_indent=0.0, left_indent=0.0, spacing=1.40, align=None):
     pf = paragraph.paragraph_format
     pf.line_spacing = spacing
     pf.space_before = Pt(0)
-    pf.space_after = Pt(0)
+    pf.space_after = Pt(1.0)
     pf.first_line_indent = Inches(first_indent)
     pf.left_indent = Inches(left_indent)
     pf.widow_control = True
@@ -84,7 +84,7 @@ def base_paragraph(paragraph, first_indent=0.0, left_indent=0.0, spacing=2.0, al
 
 
 def add_runs(paragraph, text, size=12, base_bold=False):
-    """Interpreta **negrita**, *cursiva* y `codigo` dentro de un texto."""
+    """Interpreta **negrita**, *cursiva* y `código` dentro de un texto."""
     parts = re.split(r"(\*\*.*?\*\*|\*.*?\*|`.*?`)", text)
     for part in parts:
         if not part:
@@ -118,7 +118,6 @@ def add_page_number_header(section):
     run._r.append(fld_sep)
     run._r.append(fld_end)
     set_run(run, size=11)
-    # tabulador derecho en el margen
     pPr = paragraph._p.get_or_add_pPr()
     tabs = OxmlElement("w:tabs")
     tab = OxmlElement("w:tab")
@@ -133,9 +132,9 @@ def heading(doc, text, level, page_break=False, page_break_before=False):
         doc.add_page_break()
     paragraph = doc.add_paragraph()
     pf = paragraph.paragraph_format
-    pf.line_spacing = 2.0
-    pf.space_before = Pt(0)
-    pf.space_after = Pt(0)
+    pf.line_spacing = 1.15
+    pf.space_before = Pt(8 if level == 1 else 6 if level == 2 else 4)
+    pf.space_after = Pt(2)
     pf.keep_with_next = True
     pf.keep_together = True
     if page_break_before:
@@ -149,7 +148,6 @@ def heading(doc, text, level, page_break=False, page_break_before=False):
     else:
         paragraph.alignment = WD_ALIGN_PARAGRAPH.LEFT
         set_run(paragraph.add_run(text), bold=True, italic=True)
-    # nivel real de esquema para que el campo TOC lo reconozca
     pPr = paragraph._p.get_or_add_pPr()
     outline = OxmlElement("w:outlineLvl")
     outline.set(qn("w:val"), str(level - 1))
@@ -159,15 +157,15 @@ def heading(doc, text, level, page_break=False, page_break_before=False):
 
 def add_toc(doc):
     paragraph = doc.add_paragraph()
-    base_paragraph(paragraph, align=WD_ALIGN_PARAGRAPH.LEFT)
+    base_paragraph(paragraph, align=WD_ALIGN_PARAGRAPH.LEFT, spacing=1.15)
     run = paragraph.add_run()
     fld_begin = parse_xml(r'<w:fldChar %s w:fldCharType="begin" w:dirty="true"/>' % nsdecls("w"))
     instr = parse_xml(
-        r'<w:instrText %s xml:space="preserve"> TOC \o "1-2" \h \z \u </w:instrText>' % nsdecls("w")
+        r'<w:instrText %s xml:space="preserve"> TOC \o "1-1" \h \z \u </w:instrText>' % nsdecls("w")
     )
     fld_sep = parse_xml(r'<w:fldChar %s w:fldCharType="separate"/>' % nsdecls("w"))
     placeholder = OxmlElement("w:t")
-    placeholder.text = "Actualice el indice con clic derecho > Actualizar campo."
+    placeholder.text = "Actualice el índice con clic derecho > Actualizar campo."
     fld_end = parse_xml(r'<w:fldChar %s w:fldCharType="end"/>' % nsdecls("w"))
     run._r.append(fld_begin)
     run._r.append(instr)
@@ -206,12 +204,12 @@ def _mark_header_row(row):
 
 def add_table(doc, rows, number, title, note=""):
     caption = doc.add_paragraph()
-    base_paragraph(caption)
+    base_paragraph(caption, spacing=1.15)
     caption.paragraph_format.keep_with_next = True
     set_run(caption.add_run(f"Tabla {number}"), bold=True)
 
     title_p = doc.add_paragraph()
-    base_paragraph(title_p)
+    base_paragraph(title_p, spacing=1.15)
     title_p.paragraph_format.keep_with_next = True
     set_run(title_p.add_run(title), italic=True)
 
@@ -221,10 +219,6 @@ def add_table(doc, rows, number, title, note=""):
     table.autofit = True
     _set_table_borders(table)
 
-    # Una cadena sin espacios (por ejemplo una URL) dentro de una celda
-    # estrecha puede hacer que Word entre en un bucle de maquetacion al
-    # exportar a PDF. Cuando la tabla es de dos columnas y aparece un token
-    # largo se fijan anchos explicitos para que el texto quepa en una linea.
     longest_token = max(
         (len(token) for row in rows for value in row for token in value.split()),
         default=0,
@@ -254,9 +248,9 @@ def add_table(doc, rows, number, title, note=""):
             paragraph = cell.paragraphs[0]
             paragraph.alignment = WD_ALIGN_PARAGRAPH.LEFT
             paragraph.paragraph_format.line_spacing = 1.0
-            paragraph.paragraph_format.space_before = Pt(3)
-            paragraph.paragraph_format.space_after = Pt(3)
-            add_runs(paragraph, value, size=10, base_bold=(r_idx == 0))
+            paragraph.paragraph_format.space_before = Pt(2)
+            paragraph.paragraph_format.space_after = Pt(2)
+            add_runs(paragraph, value, size=9.5, base_bold=(r_idx == 0))
         if r_idx == 0:
             _mark_header_row(table.rows[0])
             for c_idx in range(cols):
@@ -270,9 +264,9 @@ def add_table(doc, rows, number, title, note=""):
 
     if note:
         note_p = doc.add_paragraph()
-        base_paragraph(note_p)
-        set_run(note_p.add_run("Nota. "), size=10, italic=True)
-        add_runs(note_p, note, size=10)
+        base_paragraph(note_p, spacing=1.15)
+        set_run(note_p.add_run("Nota. "), size=9.5, italic=True)
+        add_runs(note_p, note, size=9.5)
 
 
 def add_figure(doc, rel_path, number, caption, note=""):
@@ -281,64 +275,76 @@ def add_figure(doc, rel_path, number, caption, note=""):
         raise FileNotFoundError(f"no existe la figura: {path}")
 
     label = doc.add_paragraph()
-    base_paragraph(label)
+    base_paragraph(label, spacing=1.15)
     label.paragraph_format.keep_with_next = True
     set_run(label.add_run(f"Figura {number}"), bold=True)
 
     title_p = doc.add_paragraph()
-    base_paragraph(title_p)
+    base_paragraph(title_p, spacing=1.15)
     title_p.paragraph_format.keep_with_next = True
     set_run(title_p.add_run(caption), italic=True)
 
     with Image.open(path) as image:
         width_px, height_px = image.size
-    width_in = min(TEXT_WIDTH_IN, 7.2 * width_px / height_px)
+
+    # Ajuste proporcional según el tipo de diagrama
+    if "01_componentes" in str(path) or "02_secuencia" in str(path) or "03_despliegue" in str(path):
+        max_w = 5.4
+        max_h = 2.5
+    else:
+        max_w = 4.8
+        max_h = 2.05
+
+    width_in = min(max_w, max_h * width_px / height_px)
     height_in = width_in * height_px / width_px
-    if height_in > 7.6:
-        height_in = 7.6
+    if height_in > max_h:
+        height_in = max_h
         width_in = height_in * width_px / height_px
+    if width_in > max_w:
+        width_in = max_w
+        height_in = width_in * height_px / width_px
 
     picture_p = doc.add_paragraph()
-    base_paragraph(picture_p, align=WD_ALIGN_PARAGRAPH.CENTER)
+    base_paragraph(picture_p, align=WD_ALIGN_PARAGRAPH.CENTER, spacing=1.0)
     picture_p.paragraph_format.keep_with_next = bool(note)
     picture_p.add_run().add_picture(str(path), width=Inches(width_in), height=Inches(height_in))
 
     if note:
         note_p = doc.add_paragraph()
-        base_paragraph(note_p)
-        set_run(note_p.add_run("Nota. "), size=10, italic=True)
-        add_runs(note_p, note, size=10)
+        base_paragraph(note_p, spacing=1.15)
+        set_run(note_p.add_run("Nota. "), size=9.5, italic=True)
+        add_runs(note_p, note, size=9.5)
 
 
 # ---------------------------------------------------------------------------
-# Portada, resumen e indice
+# Portada, resumen e índice
 # ---------------------------------------------------------------------------
 def build_cover(doc):
-    for _ in range(3):
-        base_paragraph(doc.add_paragraph())
+    for _ in range(2):
+        base_paragraph(doc.add_paragraph(), spacing=1.0)
 
     p = doc.add_paragraph()
-    base_paragraph(p, align=WD_ALIGN_PARAGRAPH.CENTER)
+    base_paragraph(p, align=WD_ALIGN_PARAGRAPH.CENTER, spacing=1.15)
     set_run(p.add_run(TITULO), bold=True)
 
     p = doc.add_paragraph()
-    base_paragraph(p, align=WD_ALIGN_PARAGRAPH.CENTER)
+    base_paragraph(p, align=WD_ALIGN_PARAGRAPH.CENTER, spacing=1.15)
     set_run(p.add_run(SUBTITULO), italic=True)
 
     for _ in range(2):
-        base_paragraph(doc.add_paragraph())
+        base_paragraph(doc.add_paragraph(), spacing=1.0)
 
     for line in AUTORES.split("\n"):
         p = doc.add_paragraph()
-        base_paragraph(p, align=WD_ALIGN_PARAGRAPH.CENTER)
+        base_paragraph(p, align=WD_ALIGN_PARAGRAPH.CENTER, spacing=1.15)
         set_run(p.add_run(line))
 
     for _ in range(2):
-        base_paragraph(doc.add_paragraph())
+        base_paragraph(doc.add_paragraph(), spacing=1.0)
 
     for line in (INSTITUCION, PROGRAMA, CURSO, DOCENTE, FECHA):
         p = doc.add_paragraph()
-        base_paragraph(p, align=WD_ALIGN_PARAGRAPH.CENTER)
+        base_paragraph(p, align=WD_ALIGN_PARAGRAPH.CENTER, spacing=1.15)
         set_run(p.add_run(line))
 
     doc.add_page_break()
@@ -346,15 +352,15 @@ def build_cover(doc):
 
 def build_abstract(doc, abstract, keywords):
     p = doc.add_paragraph()
-    base_paragraph(p, align=WD_ALIGN_PARAGRAPH.CENTER)
+    base_paragraph(p, align=WD_ALIGN_PARAGRAPH.CENTER, spacing=1.15)
     set_run(p.add_run("Resumen"), bold=True)
 
     p = doc.add_paragraph()
-    base_paragraph(p)
+    base_paragraph(p, spacing=1.3)
     add_runs(p, abstract)
 
     p = doc.add_paragraph()
-    base_paragraph(p, first_indent=0.5)
+    base_paragraph(p, first_indent=0.5, spacing=1.3)
     set_run(p.add_run("Palabras clave: "), italic=True)
     set_run(p.add_run(keywords))
 
@@ -363,7 +369,7 @@ def build_abstract(doc, abstract, keywords):
 
 def build_toc_page(doc):
     p = doc.add_paragraph()
-    base_paragraph(p, align=WD_ALIGN_PARAGRAPH.CENTER)
+    base_paragraph(p, align=WD_ALIGN_PARAGRAPH.CENTER, spacing=1.15)
     set_run(p.add_run("Índice"), bold=True)
     add_toc(doc)
 
@@ -502,9 +508,9 @@ def parse_markdown(doc, text, references: str = ""):
         if line.startswith("- "):
             p = doc.add_paragraph(style="List Bullet")
             pf = p.paragraph_format
-            pf.line_spacing = 2.0
+            pf.line_spacing = 1.3
             pf.space_before = Pt(0)
-            pf.space_after = Pt(0)
+            pf.space_after = Pt(1)
             pf.left_indent = Inches(0.5)
             pf.first_line_indent = Inches(-0.25)
             add_runs(p, line[2:])
@@ -523,8 +529,9 @@ def build_references(doc, references: str):
     entries.sort(key=lambda value: re.sub(r"^[^A-Za-zÁÉÍÓÚÑáéíóúñ]+", "", value).lower())
     for entry in entries:
         p = doc.add_paragraph()
-        base_paragraph(p, left_indent=0.5)
+        base_paragraph(p, left_indent=0.5, spacing=1.15)
         p.paragraph_format.first_line_indent = Inches(-0.5)
+        p.paragraph_format.space_after = Pt(3)
         add_runs(p, entry)
 
 
@@ -543,9 +550,9 @@ def main():
     normal = doc.styles["Normal"]
     normal.font.name = FONT
     normal.font.size = Pt(12)
-    normal.paragraph_format.line_spacing = 2.0
+    normal.paragraph_format.line_spacing = 1.40
     normal.paragraph_format.space_before = Pt(0)
-    normal.paragraph_format.space_after = Pt(0)
+    normal.paragraph_format.space_after = Pt(1.0)
 
     for section in doc.sections:
         section.top_margin = Inches(1)

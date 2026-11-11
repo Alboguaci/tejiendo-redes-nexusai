@@ -18,14 +18,17 @@ horizontal y se degrada de manera controlada cuando un nodo falla.
 
 | Entregable | Ubicación |
 |---|---|
-| Repositorio del código | <https://github.com/Alboguaci/tejiendo-redes-nexusai> |
-| Informe APA 7 (50 páginas) | [`informe/Informe_Actividad4_Tejiendo_Redes.pdf`](informe/Informe_Actividad4_Tejiendo_Redes.pdf) |
-| Informe editable | [`informe/Informe_Actividad4_Tejiendo_Redes.docx`](informe/Informe_Actividad4_Tejiendo_Redes.docx) |
+| Repositorio central de código | <https://github.com/Alboguaci/tejiendo-redes-nexusai> |
+| Informe técnico APA 7 (20 páginas) | [`informe/Informe_Actividad4_Tejiendo_Redes.pdf`](informe/Informe_Actividad4_Tejiendo_Redes.pdf) |
+| Compendio de anexos técnicos (5 páginas) | [`informe/Anexos_Tecnicos_NexusAI2.pdf`](informe/Anexos_Tecnicos_NexusAI2.pdf) |
+| Informe técnico editable (.docx) | [`informe/Informe_Actividad4_Tejiendo_Redes.docx`](informe/Informe_Actividad4_Tejiendo_Redes.docx) |
+| Anexos técnicos editables (.docx) | [`informe/Anexos_Tecnicos_NexusAI2.docx`](informe/Anexos_Tecnicos_NexusAI2.docx) |
 | Diagramas UML (componentes, secuencia, despliegue) | [`diagramas/`](diagramas/) |
 | Prototipo ejecutable | [`prototipo/`](prototipo/) |
 | Resultados, gráficas y evidencias | [`pruebas/`](pruebas/), [`evidencias/`](evidencias/) |
-| Guion del video | [`guion_video.md`](guion_video.md) |
-| Video demostrativo (YouTube, no listado) | Pendiente de publicar |
+| Guion de sustentación oral (17 min, .docx) | [`informe/Guion_Presentacion_Oral_17min.docx`](informe/Guion_Presentacion_Oral_17min.docx) |
+| Guion del video (markdown) | [`guion_video.md`](guion_video.md) |
+| Video demostrativo (YouTube, no listado) | Pendiente de publicar (enlace en plataforma institucional) |
 
 ---
 
